@@ -1,0 +1,10 @@
+tak.localCache
+.classpath
+.project
+.settings
+.studio
+target
+/mule-project.xml
+maven-eclipse.xml
+Maven_Ant_Builder.launch
+transaction.log

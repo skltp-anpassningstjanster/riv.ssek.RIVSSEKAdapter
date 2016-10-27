@@ -1,1 +1,0 @@
-# riv.ssek.SSEKAdapter

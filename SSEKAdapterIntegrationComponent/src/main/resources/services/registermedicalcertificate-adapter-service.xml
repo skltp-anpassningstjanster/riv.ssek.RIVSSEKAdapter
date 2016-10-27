@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mule
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf"
+        xmlns="http://www.mulesoft.org/schema/mule/core"
+	    xmlns:spring="http://www.springframework.org/schema/beans" 
+        xsi:schemaLocation="
+                http://www.mulesoft.org/schema/mule/core    http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+                http://www.mulesoft.org/schema/mule/cxf     http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
+        ">
+
+    <flow name="RegisterMedicalCertificateService-3.0">
+
+        <inbound-endpoint address="${IN_ENDPOINT_REGISTERMEDICALCERTIFICATE}"
+                          connector-ref="soitoolkit-http-connector" 
+                          exchange-pattern="request-response"
+                          transformer-refs="create-correlation-id objToStr logReqIn"
+                          responseTransformer-refs="createSoapFaultTransformer objToStr logRespOut"/>
+
+        <processor ref="pre-processor" />
+
+        <cxf:proxy-service namespace="urn:riv:insuranceprocess:healthreporting:RegisterMedicalCertificate:3:rivtabp20"
+                           payload="body"
+                           service="RegisterMedicalCertificateResponderService"
+                           wsdlLocation="classpath:/schemas/interactions/RegisterMedicalCertificateInteraction/RegisterMedicalCertificateInteraction_3.1_rivtabp20.wsdl" >
+
+	        <cxf:outInterceptors>
+				<spring:bean class="se.skl.skltpservices.ssekadapter.mule.OutboundSSEKHeaderInterceptor" />
+	        </cxf:outInterceptors>
+        
+        </cxf:proxy-service>
+
+        <custom-transformer class="se.skl.skltpservices.ssekadapter.mule.OutboundRequestTransformer" />
+
+        <flow-ref name="outbound-dynamic-route-flow" />
+
+        <response>
+            <custom-transformer class="se.skl.skltpservices.ssekadapter.mule.OutboundResponseTransformer" />
+        </response>
+
+		<custom-exception-strategy class="org.soitoolkit.commons.mule.error.ServiceExceptionStrategy" />
+
+    </flow>
+
+</mule>
