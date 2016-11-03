@@ -32,9 +32,8 @@
 
 	<!-- riv-ssek -->
     <dependency>
-       <groupId>se.skltp.shs</groupId>
+       <groupId>se.skltp.adapterservices.ssekadapter</groupId>
        <artifactId>insuranceprocess-healthreporting-schemas-3.1.0</artifactId>
-        <version>1.0-RC3-SNAPSHOT</version>
     </dependency>
 
     <dependency>
