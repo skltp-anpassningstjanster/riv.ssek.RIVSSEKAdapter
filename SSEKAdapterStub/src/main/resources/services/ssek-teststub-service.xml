@@ -9,7 +9,7 @@
         ">
     <flow name="ssek-teststub-flow" >
 
-        <inbound-endpoint address="${ENDPOINT_SSEK_EXTRACT_STUB}"
+        <inbound-endpoint address="${ENDPOINT_RMC_STUB}"
                           connector-ref="soitoolkit-https-connector"
                           exchange-pattern="request-response" />
 

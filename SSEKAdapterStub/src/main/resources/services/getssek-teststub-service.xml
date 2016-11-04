@@ -9,7 +9,7 @@
         ">
     <flow name="getssek-teststub-flow" >
 
-        <inbound-endpoint address="${ENDPOINT_GET_SSEK_EXTRACT_STUB}"
+        <inbound-endpoint address="${ENDPOINT_GET_RMC_STUB}"
                           connector-ref="soitoolkit-https-connector"/>
 
         <cxf:jaxws-service

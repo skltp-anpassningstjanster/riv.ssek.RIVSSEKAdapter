@@ -56,9 +56,7 @@ public class Router implements MuleContextAware {
     public static final String CONTRACT_CALLBACK  = "http://nationellpatientoversikt.se:SendStatus";
     
     static final List<String> CONTRACTS = Arrays.asList(
-             AbstractMapper.NS_RIV_EXTRACT,
-            "urn:riv13606:v1.1:RIV13606REQUEST_EHR_EXTRACT",
-            CONTRACT_CALLBACK);
+             AbstractMapper.NS_RIV_EXTRACT);
 
     private URL takWSDL;
     private String takCacheFilename;

@@ -67,7 +67,7 @@ public class RegisterMedicalCertificateMapperTest {
 	}
 
     @Test
-    public void testMapFromEhrToCareContracts() {
+    public void testMapRegisterMedicalCertificate() {
         MuleMessage mockMessage = mock(MuleMessage.class);
         when(mockMessage.getUniqueId()).thenReturn("1234");
         RegisterMedicalCertificateMapper mapper = getRegisterMedicalCertificateMapper();
