@@ -28,7 +28,7 @@ import se.skl.skltpservices.ssekadapter.mapper.error.AdapterException;
 import se.skl.skltpservices.ssekadapter.util.Sample;
 
 /**
- * Transforms EHR_EXTRACT responses from source systems to tge actual RIV service contract response.
+ * Transforms responses from source systems to tge actual RIV service contract response.
  *
  * @see se.skl.skltpservices.ssekadapter.mapper.AbstractMapper
  *

@@ -28,7 +28,7 @@ import se.skl.skltpservices.ssekadapter.mapper.error.AdapterException;
 import se.skl.skltpservices.ssekadapter.util.Sample;
 
 /**
- * Transforms standard RIV Service Contract requests from consumers to a corresponding EHR_EXTRACT request. <p/>
+ * Transforms standard RIV Service Contract requests from consumers to a corresponding SSEK request. <p/>
  *
  * @see se.skl.skltpservices.ssekadapter.mapper.AbstractMapper
  *

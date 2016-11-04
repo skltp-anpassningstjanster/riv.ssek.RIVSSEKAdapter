@@ -48,7 +48,7 @@ public class RegisterMedicalCertificateMapper extends AbstractMapper implements 
         initialiseValidator("/schemas/core_components/ISO_dt_subset_1.0.xsd",
         		"/schemas/core_components/ws-addressing-1.0.xsd",
         		"/schemas/core_components/insuranceprocess_certificate_1.0.xsd", 
-                "/schemas/core_components/insuranceprocess_healthreporting_2.0.xsd",               
+                "/schemas/core_components/Insuranceprocess_healthreporting_2.0.xsd",               
                 "/schemas/core_components/MU7263-RIV_3.1.xsd",
                 "/schemas/core_components/MedicalCertificateQuestionsAnswers_1.0.xsd",
                 "/schemas/interactions/RegisterMedicalCertificateInteraction/RegisterMedicalCertificateResponder_3.1.xsd");

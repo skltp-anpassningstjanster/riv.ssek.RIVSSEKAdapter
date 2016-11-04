@@ -29,9 +29,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
- * Utility class to create and map common EHR types.
+ * Utility class.
  * 
- * @author torbjorncla
  */
 public final class SSEKUtil {
 
