@@ -4,12 +4,12 @@
         xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf"
         xmlns="http://www.mulesoft.org/schema/mule/core"
         xsi:schemaLocation="
-                http://www.mulesoft.org/schema/mule/core    http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-                http://www.mulesoft.org/schema/mule/cxf     http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
+                http://www.mulesoft.org/schema/mule/core  http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+                http://www.mulesoft.org/schema/mule/cxf   http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
         ">
     <flow name="getssek-teststub-flow" >
 
-        <inbound-endpoint address="${ENDPOINT_GET_RMC_STUB}"
+        <inbound-endpoint address="${ENDPOINT_HTTP_SSEK_STUB}"
                           connector-ref="soitoolkit-http-connector"/>
 
         <cxf:jaxws-service

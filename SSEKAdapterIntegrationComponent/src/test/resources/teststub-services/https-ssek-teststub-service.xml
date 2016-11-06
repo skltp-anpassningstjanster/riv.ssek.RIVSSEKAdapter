@@ -4,20 +4,23 @@
         xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf"
         xmlns="http://www.mulesoft.org/schema/mule/core"
         xsi:schemaLocation="
-                http://www.mulesoft.org/schema/mule/core  http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-                http://www.mulesoft.org/schema/mule/cxf   http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
+                http://www.mulesoft.org/schema/mule/core    http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+                http://www.mulesoft.org/schema/mule/cxf     http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
         ">
-    <flow name="getssek-teststub-flow" >
+    <flow name="ssek-teststub-flow" >
 
-        <inbound-endpoint address="${ENDPOINT_GET_RMC_STUB}"
-                          connector-ref="soitoolkit-https-connector"/>
+        <inbound-endpoint address="${ENDPOINT_SSEK_STUB}"
+                          connector-ref="soitoolkit-https-connector"
+                          exchange-pattern="request-response" />
 
         <cxf:jaxws-service
                 serviceClass="se.skl.skltpservices.ssekadapter.test.stub.RegisterMedicalCertificateWS"
                 wsdlLocation="classpath:/schemas/interactions/RegisterMedicalCertificateInteraction/RegisterMedicalCertificateInteraction_3.1_rivtabp20.wsdl" />
 
         <component>
-            <singleton-object class="se.skl.skltpservices.ssekadapter.test.stub.RegisterMedicalCertificateWS"  />
+            <singleton-object class="se.skl.skltpservices.ssekadapter.test.stub.RegisterMedicalCertificateWS">
+               <property key="responseTimeout" value="${SERVICE_TIMEOUT_MS}" />
+            </singleton-object>
         </component>
 
         <custom-exception-strategy class="org.soitoolkit.commons.mule.error.ServiceExceptionStrategy"/>

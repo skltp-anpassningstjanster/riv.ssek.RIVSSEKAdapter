@@ -7,20 +7,17 @@
                 http://www.mulesoft.org/schema/mule/core    http://www.mulesoft.org/schema/mule/core/current/mule.xsd
                 http://www.mulesoft.org/schema/mule/cxf     http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
         ">
-    <flow name="ssek-teststub-flow" >
+    <flow name="getssek-teststub-flow" >
 
-        <inbound-endpoint address="${ENDPOINT_RMC_STUB}"
-                          connector-ref="soitoolkit-https-connector"
-                          exchange-pattern="request-response" />
+        <inbound-endpoint address="${ENDPOINT_HTTP_SSEK_STUB}"
+                          connector-ref="soitoolkit-http-connector"/>
 
         <cxf:jaxws-service
                 serviceClass="se.skl.skltpservices.ssekadapter.test.stub.RegisterMedicalCertificateWS"
-                wsdlLocation="sclasspath:/schemas/interactions/RegisterMedicalCertificateInteraction/RegisterMedicalCertificateInteraction_3.1_rivtabp20.wsdl" />
+                wsdlLocation="classpath:/schemas/interactions/RegisterMedicalCertificateInteraction/RegisterMedicalCertificateInteraction_3.1_rivtabp20.wsdl" />
 
         <component>
-            <singleton-object class="se.skl.skltpservices.ssekadapter.test.stub.RegisterMedicalCertificateWS">
-               <property key="responseTimeout" value="${SERVICE_TIMEOUT_MS}" />
-            </singleton-object>
+            <singleton-object class="se.skl.skltpservices.ssekadapter.test.stub.RegisterMedicalCertificateWS"  />
         </component>
 
         <custom-exception-strategy class="org.soitoolkit.commons.mule.error.ServiceExceptionStrategy"/>

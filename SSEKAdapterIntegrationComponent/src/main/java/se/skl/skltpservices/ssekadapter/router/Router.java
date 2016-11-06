@@ -129,6 +129,7 @@ public class Router implements MuleContextAware {
         final RouteData routeData = new RouteData();
         final Calendar now = Calendar.getInstance();
         for (final VirtualiseringsInfoType infoType : data.getVirtualiseringsInfo()) {
+        	log.info(infoType.getTjansteKontrakt() + " " + infoType.getReceiverId());
             if (isActive(now, infoType) && isTargetContract(infoType.getTjansteKontrakt())) {
                 routeData.setRoute(infoType.getReceiverId(), RouteData.route(infoType.getTjansteKontrakt(), infoType.getAdress()));
             }

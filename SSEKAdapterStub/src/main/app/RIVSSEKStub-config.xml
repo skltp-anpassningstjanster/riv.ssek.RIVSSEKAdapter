@@ -8,10 +8,11 @@
 
     <spring:beans>
      	<!-- register all services -->
-        <spring:import resource="classpath:services/ssek-teststub-service.xml"/>
+        <spring:import resource="classpath:services/https-ssek-teststub-service.xml"/>
         <spring:import resource="classpath:services/exit-teststub-service.xml"/>
-        <spring:import resource="classpath:services/getssek-teststub-service.xml"/>
+        <spring:import resource="classpath:services/http-ssek-teststub-service.xml"/>
         <spring:import resource="classpath:services/ping-for-configuration-service.xml"/>
+        <spring:import resource="classpath:takvagval-teststub-service.xml"/>
     </spring:beans>
 
     <custom-transformer class="se.skl.skltpservices.ssekadapter.mule.UseOrCreateCorrelationIdTransformer" name="create-correlation-id"/>
