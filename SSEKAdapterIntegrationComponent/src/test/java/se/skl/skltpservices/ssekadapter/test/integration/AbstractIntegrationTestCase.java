@@ -35,8 +35,8 @@ public abstract class AbstractIntegrationTestCase extends AbstractTestCase {
         return "soitoolkit-mule-jms-connector-activemq-embedded.xml"
                 + ",RIVSSEKAdapter-common.xml"
                 + ",RIVSSEKAdapter-config.xml"
-                + ",teststub-services/ssek-teststub-service.xml"
-                + ",teststub-services/getssek-teststub-service.xml"
+                + ",teststub-services/https-ssek-teststub-service.xml"
+                + ",teststub-services/http-ssek-teststub-service.xml"
                 + ",teststub-services/takvagval-teststub-service.xml";
     }
 }

@@ -13,11 +13,11 @@
                           connector-ref="soitoolkit-http-connector"/>
 
         <cxf:jaxws-service
-                serviceClass="se.skl.skltpservices.ssekadapter.test.stub.RegisterMedicalCertificateWS"
-                wsdlLocation="classpath:/schemas/interactions/RegisterMedicalCertificateInteraction/RegisterMedicalCertificateInteraction_3.1_rivtabp20.wsdl" />
+                serviceClass="se.skl.skltpservices.ssekadapter.test.stub.SSEKRegisterMedicalCertificateResponderService"
+                wsdlLocation="classpath:/schemas/interactions/RegisterMedicalCertificateInteraction/SSEKRegisterMedicalCertificateInteraction_3.1_rivtabp20.wsdl" />
 
         <component>
-            <singleton-object class="se.skl.skltpservices.ssekadapter.test.stub.RegisterMedicalCertificateWS"  />
+            <singleton-object class="se.skl.skltpservices.ssekadapter.test.stub.SSEKRegisterMedicalCertificateResponderService"  />
         </component>
 
         <custom-exception-strategy class="org.soitoolkit.commons.mule.error.ServiceExceptionStrategy"/>

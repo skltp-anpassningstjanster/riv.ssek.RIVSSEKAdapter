@@ -7,18 +7,18 @@
                 http://www.mulesoft.org/schema/mule/core    http://www.mulesoft.org/schema/mule/core/current/mule.xsd
                 http://www.mulesoft.org/schema/mule/cxf     http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
         ">
-    <flow name="ssek-teststub-flow" >
+    <flow name="https-rmc-teststub-flow" >
 
-        <inbound-endpoint address="${ENDPOINT_HTTPS_SSEK_STUB}"
+        <inbound-endpoint address="${ENDPOINT_HTTPS_RMC_STUB}"
                           connector-ref="soitoolkit-https-connector"
                           exchange-pattern="request-response" />
 
         <cxf:jaxws-service
-                serviceClass="se.skl.skltpservices.ssekadapter.test.stub.SSEKRegisterMedicalCertificateResponderService"
-                wsdlLocation="classpath:/schemas/interactions/RegisterMedicalCertificateInteraction/SSEKRegisterMedicalCertificateInteraction_3.1_rivtabp20.wsdl" />
+                serviceClass="se.skl.skltpservices.ssekadapter.test.stub.RegisterMedicalCertificateWS"
+                wsdlLocation="classpath:/schemas/interactions/RegisterMedicalCertificateInteraction/RegisterMedicalCertificateInteraction_3.1_rivtabp20.wsdl" />
 
         <component>
-            <singleton-object class="se.skl.skltpservices.ssekadapter.test.stub.SSEKRegisterMedicalCertificateResponderService">
+            <singleton-object class="se.skl.skltpservices.ssekadapter.test.stub.RegisterMedicalCertificateWS">
                <property key="responseTimeout" value="${SERVICE_TIMEOUT_MS}" />
             </singleton-object>
         </component>
