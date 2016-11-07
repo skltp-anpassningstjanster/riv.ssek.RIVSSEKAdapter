@@ -35,8 +35,6 @@
 
     <custom-transformer class="se.skl.skltpservices.ssekadapter.mule.UseOrCreateCorrelationIdTransformer" 			name="create-correlation-id"/>
     
-    <custom-transformer class="se.skl.skltpservices.ssekadapter.mule.CheckOutboundResponseTransformer"               name="check-response-transformer" />
-    
     <custom-transformer class="se.skl.skltpservices.ssekadapter.mule.InboundCSTakLookupTransformer"                  name="cs-taklookup-transformer">
         <spring:property name="router" ref="router" />
     </custom-transformer>

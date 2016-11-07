@@ -23,6 +23,7 @@ import java.net.URL;
 
 import javax.jws.WebService;
 import javax.xml.namespace.QName;
+import javax.xml.soap.SOAPHeaderElement;
 import javax.xml.ws.WebServiceClient;
 
 import org.ssek.v2.SSEK;
@@ -62,20 +63,24 @@ public class SSEKRegisterMedicalCertificateResponderService implements SSEKRegis
 	public RegisterMedicalCertificateResponseType ssekRegisterMedicalCertificate(SSEK sseKrequest,
 			RegisterMedicalCertificateType parameters) {
 
+		/*
+		 *  Mock response
+		 */
 		String result = "SSEK Header is [";
 		if(sseKrequest != null) {
-			result += sseKrequest.getReceiverId() + ", ";
-			result += sseKrequest.getSenderId() + ", ";
-			result += sseKrequest.getTxId() + ", ";
+			result += "ReceiverId=" + sseKrequest.getReceiverId().getValue() + ", ";
+			result += "SenderId=" + sseKrequest.getSenderId().getValue() + ", ";
+			result += "TxId=" + sseKrequest.getTxId() + ", ";
 		}
+		result += "mustUnderstand=" + ((SOAPHeaderElement)sseKrequest).getMustUnderstand();
 		result += "]";
 
 		final RegisterMedicalCertificateResponseType response = new RegisterMedicalCertificateResponseType();
 
-		ResultOfCall value = new ResultOfCall();
-		value.setResultCode(ResultCodeEnum.OK);
-		value.setInfoText(result);
-		response.setResult(value);
+		ResultOfCall roc = new ResultOfCall();
+		roc.setResultCode(ResultCodeEnum.OK);
+		roc.setInfoText(result);
+		response.setResult(roc);
 
         return response;
 	}
