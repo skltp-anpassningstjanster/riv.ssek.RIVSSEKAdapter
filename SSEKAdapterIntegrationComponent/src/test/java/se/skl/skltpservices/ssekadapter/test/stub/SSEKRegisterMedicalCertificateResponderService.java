@@ -63,6 +63,8 @@ public class SSEKRegisterMedicalCertificateResponderService implements SSEKRegis
 	public RegisterMedicalCertificateResponseType ssekRegisterMedicalCertificate(SSEK sseKrequest,
 			RegisterMedicalCertificateType parameters) {
 
+	    final QName MUSTUNDERSTAND = new QName("http://schemas.xmlsoap.org/wsdl/soap/", "mustUnderstand");
+
 		/*
 		 *  Mock response
 		 */
@@ -72,7 +74,9 @@ public class SSEKRegisterMedicalCertificateResponderService implements SSEKRegis
 			result += "SenderId=" + sseKrequest.getSenderId().getValue() + ", ";
 			result += "TxId=" + sseKrequest.getTxId() + ", ";
 		}
-		result += "mustUnderstand=" + ((SOAPHeaderElement)sseKrequest).getMustUnderstand();
+
+
+		result += "mustUnderstand=" + sseKrequest.getOtherAttributes().get(MUSTUNDERSTAND);
 		result += "]";
 
 		final RegisterMedicalCertificateResponseType response = new RegisterMedicalCertificateResponseType();
