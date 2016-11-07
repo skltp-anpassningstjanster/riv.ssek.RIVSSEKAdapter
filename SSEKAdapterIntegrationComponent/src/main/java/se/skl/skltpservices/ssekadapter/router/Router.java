@@ -52,9 +52,6 @@ public class Router implements MuleContextAware {
 
     static final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
     
-    public static final String NAMESPACE_CALLBACK = "http://nationellpatientoversikt.se";
-    public static final String CONTRACT_CALLBACK  = "http://nationellpatientoversikt.se:SendStatus";
-    
     static final List<String> CONTRACTS = Arrays.asList(
              AbstractMapper.NS_RIV_EXTRACT);
 
@@ -208,14 +205,17 @@ public class Router implements MuleContextAware {
     //
     public void setTakWSDL(final String takWSDL) {
         try {
-            setTakWSDL(new URL(takWSDL));
+        	if(takWSDL.startsWith("classpath:"))
+        		setTakWSDL(getClass().getClassLoader().getResource(takWSDL.substring("classpath:".length())));
+        	else
+        		setTakWSDL(new URL(takWSDL));
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
     }
 
     //
-    public void setTakWSDL(final URL takWSDL) {
+    private void setTakWSDL(final URL takWSDL) {
         this.takWSDL = takWSDL;
     }
 

@@ -17,7 +17,7 @@
         
         <spring:bean id="router" class="se.skl.skltpservices.ssekadapter.router.Router">
             <spring:property name="takCacheFilename" value="${FILE_LOCAL_TAK_CACHE}" />
-            <spring:property name="takWSDL" value="${ENDPOINT_TAK_WSDL}" />
+            <spring:property name="takWSDL" value="classpath:classes/sokvagval-info-v2.wsdl"  />
         </spring:bean>
 
         <spring:bean id="route-processor" class="se.skl.skltpservices.ssekadapter.mule.OutboundRouter">
@@ -34,10 +34,6 @@
     <!-- transformers -->
 
     <custom-transformer class="se.skl.skltpservices.ssekadapter.mule.UseOrCreateCorrelationIdTransformer" 			name="create-correlation-id"/>
-    
-    <custom-transformer class="se.skl.skltpservices.ssekadapter.mule.InboundCSTakLookupTransformer"                  name="cs-taklookup-transformer">
-        <spring:property name="router" ref="router" />
-    </custom-transformer>
     
     <custom-transformer class="se.skl.skltpservices.ssekadapter.mule.TakHamtaAllaVirtualiseringarRequestTransformer" name="tak-vagval-hamtaallavirtualiseringar-transformer" />    
 

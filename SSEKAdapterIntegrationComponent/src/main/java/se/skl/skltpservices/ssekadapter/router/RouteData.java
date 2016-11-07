@@ -98,11 +98,7 @@ public class RouteData implements Serializable {
         final Route route = new Route();
         route.setSoapAction(serviceContract);
         route.setUrl(url);
-        if (serviceContract.startsWith(Router.NAMESPACE_CALLBACK)) {
-            route.setCallback(true);
-        } else {
-            route.setCallback(false);
-        }
+        route.setCallback(false);
         return route;
     }
 

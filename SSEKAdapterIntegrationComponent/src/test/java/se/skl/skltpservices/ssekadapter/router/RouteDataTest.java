@@ -56,11 +56,7 @@ public class RouteDataTest {
     public void testRoute() {
         final RouteData source = createTestRouteData();
 
-        assertTrue(source.getRoute(LOGICAL_ADDRESS1, true).isCallback());
-        assertFalse(source.getRoute(LOGICAL_ADDRESS1, false).isCallback());
-
         assertEquals(source.getRoute(LOGICAL_ADDRESS1, false).getUrl(), TEMP_URL1);
-        assertEquals(source.getRoute(LOGICAL_ADDRESS1, true).getUrl(), TEMP_URL2);
     }
 
     @Test

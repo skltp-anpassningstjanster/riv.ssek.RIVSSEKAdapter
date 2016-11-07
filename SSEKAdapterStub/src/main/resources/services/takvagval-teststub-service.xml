@@ -16,7 +16,8 @@
     <flow name="tak-teststub-flow" >
 
         <inbound-endpoint address="${ENDPOINT_TAKVAGVAL_STUB}"
-                          connector-ref="soitoolkit-http-connector"/>
+                          connector-ref="soitoolkit-http-connector"
+                          exchange-pattern="request-response" />
                           
         <logger level="INFO" message="=== Incoming request to TakVägVal stub ===" />
 
