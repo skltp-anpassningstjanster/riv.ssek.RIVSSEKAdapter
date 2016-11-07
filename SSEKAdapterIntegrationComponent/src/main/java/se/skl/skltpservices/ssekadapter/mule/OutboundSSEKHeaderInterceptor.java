@@ -35,11 +35,13 @@ import org.mule.module.cxf.CxfConstants;
 import org.mule.module.cxf.MuleSoapHeaders;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.Text;
 
 public class OutboundSSEKHeaderInterceptor extends AbstractSoapInterceptor {
 
 	private final static String SSEK_NS_URI = "http://schemas.ssek.org/ssek/2006-05-10/";
+	private final static String SOAP_NS_URI = "http://schemas.xmlsoap.org/wsdl/soap/";
     private final static String SSEK_HEADER = "SSEK";
     private final static String QUALIFIED_SSEK_HEADER = "ssek:SSEK";
     private final static String SSEK_SENDERID_PROPERTY = "SenderId";
@@ -79,22 +81,30 @@ public class OutboundSSEKHeaderInterceptor extends AbstractSoapInterceptor {
 
         Document owner_doc = DOMUtils.createDocument();
 
-        Element ssek_heaader = owner_doc.createElementNS(SSEK_NS_URI, QUALIFIED_SSEK_HEADER);
+        Element ssek_header = owner_doc.createElementNS(SSEK_NS_URI, QUALIFIED_SSEK_HEADER);
         // setup ssek: namespace prefix declaration so that we can use it.
-        ssek_heaader.setAttribute("xmlns:ssek", SSEK_NS_URI);
-        ssek_heaader.setAttribute("soap:mustUnderstand", "1");
+        ssek_header.setAttribute("xmlns:ssek", SSEK_NS_URI);
+        ssek_header.setAttribute("xmlns:soap", SOAP_NS_URI);
+        ssek_header.setAttribute("soap:mustUnderstand", "1");
 
         if (muleHeaders.getCorrelationId() != null)
         {
-            ssek_heaader.appendChild(buildMuleHeader(owner_doc, SSEK_SENDERID_PROPERTY,
+        	// Sender
+            Element sender = (Element) ssek_header.appendChild(buildMuleHeader(owner_doc, SSEK_SENDERID_PROPERTY,
                 	(String)event.getMessage().getInboundProperty(X_RIVTA_ORIGINAL_SERVICECONSUMER_HSAID, "")));
-            ssek_heaader.appendChild(buildMuleHeader(owner_doc, SSEK_RECEIVERID_PROPERTY,
+            sender.setAttribute("ssek:TYPE", "ORGNR");
+            
+            // Receiver
+            Element receiver = (Element) ssek_header.appendChild(buildMuleHeader(owner_doc, SSEK_RECEIVERID_PROPERTY,
             	(String)event.getMessage().getInvocationProperty(ROUTE_LOGICAL_ADDRESS)));
-            ssek_heaader.appendChild(buildMuleHeader(owner_doc, SSEK_TXID_PROPERTY,
+            receiver.setAttribute("ssek:TYPE", "ORGNR");
+            
+            // txId
+            ssek_header.appendChild(buildMuleHeader(owner_doc, SSEK_TXID_PROPERTY,
                     muleHeaders.getCorrelationId()));
         }
 
-        SoapHeader sh = new SoapHeader(new QName(SSEK_NS_URI, SSEK_HEADER), ssek_heaader);
+        SoapHeader sh = new SoapHeader(new QName(SSEK_NS_URI, SSEK_HEADER), ssek_header);
         message.getHeaders().add(sh);
 		
 	}
