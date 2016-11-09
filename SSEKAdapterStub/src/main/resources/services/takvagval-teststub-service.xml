@@ -21,9 +21,7 @@
                           
         <logger level="INFO" message="=== Incoming request to TakVägVal stub ===" />
 
-        <cxf:jaxws-service
-                serviceClass="se.skl.skltpservices.ssekadapter.test.stub.SokVagvalWS"
-                wsdlLocation="classpath:/sokvagval-info-v2.wsdl" />
+        <cxf:jaxws-service serviceClass="se.skl.skltpservices.ssekadapter.test.stub.SokVagvalWS" />
 
         <component>
             <singleton-object class="se.skl.skltpservices.ssekadapter.test.stub.SokVagvalWS"  />

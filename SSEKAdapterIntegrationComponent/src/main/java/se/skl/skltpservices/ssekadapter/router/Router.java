@@ -53,7 +53,7 @@ public class Router implements MuleContextAware {
     static final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
     
     static final List<String> CONTRACTS = Arrays.asList(
-             AbstractMapper.NS_RIV_EXTRACT);
+             AbstractMapper.NS_RIV_RMC);
 
     private URL takWSDL;
     private String takCacheFilename;
@@ -199,6 +199,11 @@ public class Router implements MuleContextAware {
     private HamtaAllaVirtualiseringarResponseType getRoutingDataFromSource() {
         final SokVagvalsServiceSoap11LitDocService client = new SokVagvalsServiceSoap11LitDocService(getTakWSDL());
         final HamtaAllaVirtualiseringarResponseType data = client.getSokVagvalsSoap11LitDocPort().hamtaAllaVirtualiseringar(null);
+        if(data != null && data.getVirtualiseringsInfo() != null)
+        	log.info("Antal virtualiseringar=" + data.getVirtualiseringsInfo().size());
+        else
+        	log.info("Antal virtualiseringar=null");
+        	
         return data;
     }
 

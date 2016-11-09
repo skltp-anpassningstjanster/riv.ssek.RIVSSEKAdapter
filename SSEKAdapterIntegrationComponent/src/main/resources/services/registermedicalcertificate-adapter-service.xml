@@ -17,20 +17,24 @@
                           transformer-refs="create-correlation-id objToStr logReqIn"
                           responseTransformer-refs="createSoapFaultTransformer objToStr logRespOut"/>
 
+        <logger level="INFO" message="=== Calling pre-processor ===" />
+
         <processor ref="pre-processor" />
+
+        <logger level="INFO" message="=== Calling proxy ===" />
 
         <cxf:proxy-service namespace="urn:riv:insuranceprocess:healthreporting:RegisterMedicalCertificate:3:rivtabp20"
                            payload="body"
                            service="RegisterMedicalCertificateResponderService"
                            wsdlLocation="classpath:/schemas/interactions/RegisterMedicalCertificateInteraction/RegisterMedicalCertificateInteraction_3.1_rivtabp20.wsdl" >
-
-	        <cxf:outInterceptors>
-				<spring:bean class="se.skl.skltpservices.ssekadapter.mule.OutboundSSEKHeaderInterceptor" />
-	        </cxf:outInterceptors>
         
         </cxf:proxy-service>
 
+        <logger level="INFO" message="=== Calling transformer ===" />
+
         <custom-transformer class="se.skl.skltpservices.ssekadapter.mule.OutboundRequestTransformer" />
+
+        <logger level="INFO" message="=== Calling flow ===" />
 
         <flow-ref name="outbound-dynamic-route-flow" />
 

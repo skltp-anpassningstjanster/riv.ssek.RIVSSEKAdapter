@@ -58,7 +58,7 @@ import se.inera.ifv.registermedicalcertificateresponder.v3.RegisterMedicalCertif
 public class EndToEndIntegrationTest extends AbstractIntegrationTestCase {
 
 	// TODO: Collect Endpoints from configuration
-    private static final String REGISTERMEDICALCERTIFICATE_ENDPOINT      = "http://localhost:33001/ssekadapter/getssek/stub";
+    private static final String REGISTERMEDICALCERTIFICATE_ENDPOINT      = "http://localhost:33001/ssekadapter/registermedicalcertificate/v3";
 	
 	private static final String LOGICAL_ADDRESS_VS_1 = "VS-1";
     private static final String LOGICAL_ADDRESS_VS_2 = "VS-2";
@@ -126,6 +126,8 @@ public class EndToEndIntegrationTest extends AbstractIntegrationTestCase {
         RegisterMedicalCertificateResponseType response = registerMedicalCertificateServicesInterface.registerMedicalCertificate(u, IntegrationTestDataUtil.createRegisterMedicalCertificateType(IntegrationTestDataUtil.NO_TRIGGER));
         assertFalse(response.getResult() == null);
 
+        System.out.println(">>>>>>>>>>>>>>>>>>>>> response");
+        
         validateXmlAgainstSchema(objectFactory.createRegisterMedicalCertificateResponse(response),
         		"/schemas/core_components/ISO_dt_subset_1.0.xsd",
         		"/schemas/core_components/ws-addressing-1.0.xsd",
@@ -134,6 +136,8 @@ public class EndToEndIntegrationTest extends AbstractIntegrationTestCase {
                 "/schemas/core_components/MU7263-RIV_3.1.xsd",
                 "/schemas/core_components/MedicalCertificateQuestionsAnswers_1.0.xsd",
                 "/schemas/interactions/RegisterMedicalCertificateInteraction/RegisterMedicalCertificateResponder_3.1.xsd");
+        
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>yes");
     }
 
 
@@ -182,12 +186,12 @@ public class EndToEndIntegrationTest extends AbstractIntegrationTestCase {
             fail();
         }
     }
-    
-    
+       
     // ---
     
     @Test
     public void UpdateTakCacheTest() throws Exception {
+    	
     	Flow flow = (Flow) getFlowConstruct("update-tak-cache-http-flow");
     	MuleEvent event = getTestEvent("", flow);
     	flow.process(event);

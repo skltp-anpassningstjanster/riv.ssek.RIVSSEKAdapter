@@ -38,14 +38,16 @@ public class OutboundResponseTransformer extends AbstractOutboundTransformer {
 
     @Override
     public Object transformMessage(final MuleMessage message, final String outputEncoding) throws TransformerException {
-        Sample sample = null;
+        System.out.println(">>>>>>>>>>>>>>>>>>>>> response");
+
+    	Sample sample = null;
     	try {
         	final Mapper mapper = getMapper(message);
         	sample = new Sample(mapper.getClass().getSimpleName() + ".mapResponse");
             if (message.getExceptionPayload() != null || "500".equals(message.getInboundProperty("http.status"))) {
                 return message;
             }
-            return sample.ok(mapper.mapResponse(message));
+            return sample.ok(message);
         } catch (AdapterException err) {
             throw new TransformerException(this, err);
         } finally {

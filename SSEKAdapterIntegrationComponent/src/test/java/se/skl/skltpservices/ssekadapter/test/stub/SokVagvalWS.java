@@ -22,6 +22,7 @@ package se.skl.skltpservices.ssekadapter.test.stub;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import javax.annotation.PostConstruct;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
@@ -33,6 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import se.skl.skltpservices.ssekadapter.mapper.AbstractMapper;
+import se.skl.skltpservices.ssekadapter.util.SpringPropertiesUtil;
 import skl.tp.vagvalsinfo.v2.HamtaAllaAnropsBehorigheterResponseType;
 import skl.tp.vagvalsinfo.v2.HamtaAllaVirtualiseringarResponseType;
 import skl.tp.vagvalsinfo.v2.SokVagvalsInfoInterface;
@@ -50,7 +52,16 @@ import skl.tp.vagvalsinfo.v2.VirtualiseringsInfoType;
 public class SokVagvalWS implements SokVagvalsInfoInterface {
     
     private static final Logger log = LoggerFactory.getLogger(SokVagvalWS.class);
-    
+
+    @PostConstruct
+    public void loadTestData() {
+        log.info("Load test data");
+        try {
+            //resetCache();
+        } catch (Exception e) {
+            log.error("Error loading testdata", e);
+        }
+    }
     @Override
     @WebMethod
     @WebResult(name = "hamtaAllaVirtualiseringarResponse", targetNamespace = "urn:skl:tp:vagvalsinfo:v2", partName = "response")
@@ -65,15 +76,16 @@ public class SokVagvalWS implements SokVagvalsInfoInterface {
         // </soapenv:Body>
         //
         
-        log.debug("SokVagvalsInfoInterface hamtaAllaVirtualiseringar");
-        
+    	
+        log.info("SokVagvalsInfoInterface hamtaAllaVirtualiseringar");
+
         final HamtaAllaVirtualiseringarResponseType responseType = new HamtaAllaVirtualiseringarResponseType();
         VirtualiseringsInfoType infoType = new VirtualiseringsInfoType();
         infoType.setReceiverId("VS-1");
         infoType.setRivProfil("RIVTABP20");
-        infoType.setTjansteKontrakt(AbstractMapper.NS_RIV_EXTRACT);
+        infoType.setTjansteKontrakt(AbstractMapper.NS_RIV_RMC);
         infoType.setVirtualiseringsInfoId("ID-1");
-        infoType.setAdress("https://localhost:33002/ssekadapter/ssek/stub");
+        infoType.setAdress(SpringPropertiesUtil.getProperty("ENDPOINT_HTTPS_SSEK_STUB"));
         infoType.setFromTidpunkt(fromNow(-2));
         infoType.setTomTidpunkt(null);
         responseType.getVirtualiseringsInfo().add(infoType);
@@ -81,13 +93,12 @@ public class SokVagvalWS implements SokVagvalsInfoInterface {
         infoType = new VirtualiseringsInfoType();
         infoType.setReceiverId("VS-2");
         infoType.setRivProfil("RIVTABP20");
-        infoType.setTjansteKontrakt(AbstractMapper.NS_RIV_EXTRACT);
+        infoType.setTjansteKontrakt(AbstractMapper.NS_RIV_RMC);
         infoType.setVirtualiseringsInfoId("ID-2");
-        infoType.setAdress("http://localhost:33001/ssekadapter/getssek/stub");
+        infoType.setAdress(SpringPropertiesUtil.getProperty("ENDPOINT_HTTP_SSEK_STUB"));
         infoType.setFromTidpunkt(fromNow(-2));
         infoType.setTomTidpunkt(null);
         responseType.getVirtualiseringsInfo().add(infoType);
-
 
         
         return responseType;

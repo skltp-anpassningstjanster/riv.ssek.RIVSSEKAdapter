@@ -63,6 +63,8 @@
         <spring:import resource="classpath:soitoolkit-mule-https-connector.xml"/>
     </spring:beans>
 
+	<spring:bean id="OutboundSSEKHeaderInterceptor" name="OutboundSSEKHeaderInterceptor" class="se.skl.skltpservices.ssekadapter.mule.OutboundSSEKHeaderInterceptor" />
+
     <!-- The common single jaxb-context for this mule-app -->
     <!-- Don't create additional jaxb-contexts to avoid problems with implicit jaxb transformations that can't resolve what jaxb-context to use! -->
     <!-- Use ":" as a separator if jaxb-objects from more than one java package will be used by the jaxb-transformers  -->

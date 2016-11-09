@@ -38,14 +38,21 @@ public class OutboundRequestTransformer extends AbstractOutboundTransformer {
 
     @Override
     public Object transformMessage(final MuleMessage message, final String outputEncoding) throws TransformerException {
-        try {
+    	logger.info(">>>>>>>>>>>>>>>>>>> OutboundRequestTransformer started");
+   	try {
             final Mapper mapper = getMapper(message);
             final Sample sample = new Sample(mapper.getClass().getSimpleName() + ".mapRequest");
             try {
-                return sample.ok(mapper.mapRequest(message));
-            } finally {
+            	MuleMessage msg = mapper.mapRequest(message);
+                return sample.ok(msg);
+            } catch (Exception e) {
+				// TODO Auto-generated catch block
+				logger.error(e.getMessage());
+				return null;
+			} finally {
                 sample.end();
-            }
+            	logger.info("OutboundRequestTransformer done");
+           }
         } catch (AdapterException err) {
             throw new TransformerException(this, err);
         }

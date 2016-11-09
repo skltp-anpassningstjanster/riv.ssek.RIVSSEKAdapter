@@ -42,7 +42,6 @@ public class RegisterMedicalCertificateWS implements RegisterMedicalCertificateR
 	public RegisterMedicalCertificateResponseType registerMedicalCertificate(AttributedURIType logicalAddress,
 			RegisterMedicalCertificateType parameters) {
 
-		System.out.println("So far so good");
 		final RegisterMedicalCertificateResponseType response = new RegisterMedicalCertificateResponseType();
 
 		ResultOfCall value = new ResultOfCall();

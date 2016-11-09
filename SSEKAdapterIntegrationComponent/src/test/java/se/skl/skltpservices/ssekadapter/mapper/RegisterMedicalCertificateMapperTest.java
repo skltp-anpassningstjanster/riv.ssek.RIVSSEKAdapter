@@ -62,7 +62,7 @@ public class RegisterMedicalCertificateMapperTest {
     }
 
 	private RegisterMedicalCertificateMapper getRegisterMedicalCertificateMapper() {
-		RegisterMedicalCertificateMapper mapper = (RegisterMedicalCertificateMapper) AbstractMapper.getInstance(AbstractMapper.NS_EN_EXTRACT, AbstractMapper.NS_REGISTERMEDICALCERTIFICATE_3);
+		RegisterMedicalCertificateMapper mapper = (RegisterMedicalCertificateMapper) AbstractMapper.getInstance(AbstractMapper.NS_RIV_RMC, AbstractMapper.NS_REGISTERMEDICALCERTIFICATE_3);
 		return mapper;
 	}
 

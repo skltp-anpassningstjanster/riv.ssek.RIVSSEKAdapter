@@ -101,11 +101,11 @@
     	ERROR will only put errorevents on log queue
     -->
   <logger name="org.soitoolkit.commons.mule.messageLogger">
-    <level value="INFO" />
+    <level value="DEBUG" />
   </logger>
 
-  <logger name="se.skl.skltpservices.ssekadapter">
-    <level value="WARN"/>
+  <logger name="se.skl.skltpservices">
+    <level value="INFO"/>
   </logger>
 
     <!-- Level DEBUG: Log http headers transfered during a request/response -->

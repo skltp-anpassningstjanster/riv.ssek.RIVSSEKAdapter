@@ -63,8 +63,7 @@ public abstract class AbstractMapper {
     public static final String INFO_UND_KON     = "und-kon";
     public static final String INFO_UPP         = "upp";
 
-    static final String NS_EN_EXTRACT          = "urn:riv:insuranceprocess:healthreporting:RegisterMedicalCertificate:3:rivtabp20";
-    public static final String NS_RIV_EXTRACT  = "urn:riv:insuranceprocess:healthreporting:RegisterMedicalCertificate:3:rivtabp20";
+    public static final String NS_RIV_RMC  = "urn:riv:insuranceprocess:healthreporting:RegisterMedicalCertificate:3:rivtabp20";
     
     static final String NS_REGISTERMEDICALCERTIFICATE_3 = "urn:riv:insuranceprocess:healthreporting:RegisterMedicalCertificate:3:rivtabp20";
     
@@ -77,8 +76,7 @@ public abstract class AbstractMapper {
     private static final HashMap<String, Mapper> map = new HashMap<String, Mapper>();
     static {
         // regisytermedicalcertificate
-        map.put(mapperKey(NS_EN_EXTRACT, NS_REGISTERMEDICALCERTIFICATE_3), new RegisterMedicalCertificateMapper());
-        map.put(mapperKey(NS_RIV_EXTRACT, NS_REGISTERMEDICALCERTIFICATE_3), new RIVRegisterMedicalCertificate());
+        map.put(mapperKey(NS_RIV_RMC, NS_REGISTERMEDICALCERTIFICATE_3), new RIVRegisterMedicalCertificate());
         
     }
 

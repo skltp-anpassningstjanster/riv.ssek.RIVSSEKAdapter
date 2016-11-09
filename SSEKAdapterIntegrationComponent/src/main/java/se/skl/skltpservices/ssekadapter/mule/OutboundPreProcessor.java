@@ -67,6 +67,7 @@ public class OutboundPreProcessor implements MessageProcessor {
     @Override
     public MuleEvent process(final MuleEvent event) throws MuleException {
         try {
+        	log.info("OutboundPreProcessor");
         	final byte[] payload = event.getMessage().getPayloadAsBytes();
 
         	// Ignore HTTP GET operations.
