@@ -53,7 +53,7 @@ public class UseOrCreateCorrelationIdTransformer extends AbstractMessageTransfor
 		message.setProperty(CORRELATION_ID, correlationId, PropertyScope.SESSION);
         
 		// Also set integrationscenario id as previously done.
-		message.setProperty(INTEGRATION_SCENARIO, "npo-adapter-type-1", PropertyScope.SESSION);
+		message.setProperty(INTEGRATION_SCENARIO, "ssek-adapter-type-1", PropertyScope.SESSION);
 		
         return message;
     }

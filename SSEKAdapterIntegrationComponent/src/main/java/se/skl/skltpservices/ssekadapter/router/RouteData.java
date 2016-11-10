@@ -27,8 +27,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Stores routing information. 
- * Main routing is from NPOv2 consumer to NPOv1 producer (care system).
- * Second routing for callback from SSEKAdapter to NPOv1 producer (care system).
+ * Main routing is from RIV consumer to SSEK producer (care system).
+ * Second routing for callback from SSEKAdapter to SSEK producer.
  * <p/>
  *
  * Route data is serialized to a file store.

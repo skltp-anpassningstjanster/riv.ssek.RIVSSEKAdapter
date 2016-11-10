@@ -111,7 +111,7 @@ public class OutboundRouter extends AbstractRecipientList {
 
         map.put(SOAP_ACTION, soapAction);
         map.put(X_RIVTA_ORIGINAL_SERVICECONSUMER_HSAID, originalServiceConsumerId);
-        map.put(HttpConstants.HEADER_USER_AGENT, "TP-NPO-ADAPTER/1.0");
+        map.put(HttpConstants.HEADER_USER_AGENT, "TP-RIVSSEK-ADAPTER/1.0");
         map.put(HttpConstants.HEADER_CONTENT_TYPE, "text/xml; charset=UTF-8");
 
         return map;
