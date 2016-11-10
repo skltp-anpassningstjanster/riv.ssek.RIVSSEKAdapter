@@ -54,6 +54,12 @@
         <spring:import resource="classpath:teststub-services/takvagval-teststub-service.xml"/>
     </spring:beans>
 
+	<!-- Interceptors -->
+	
+	<spring:bean id="OutboundSSEKHeaderInterceptor" name="OutboundSSEKHeaderInterceptor" class="se.skl.skltpservices.ssekadapter.mule.OutboundSSEKHeaderInterceptor">
+        <spring:property name="senderId" value="${RIVSSEK_SENDER_ID}"/>	
+	</spring:bean>
+
     <!-- Common connectors and endpoints, i.e. that not needs to be changed for different config-files (local unit-test, integration-test or production environments) -->
 
     <spring:beans>
@@ -62,8 +68,6 @@
         <spring:import resource="classpath:soitoolkit-mule-http-connector.xml"/>
         <spring:import resource="classpath:soitoolkit-mule-https-connector.xml"/>
     </spring:beans>
-
-	<spring:bean id="OutboundSSEKHeaderInterceptor" name="OutboundSSEKHeaderInterceptor" class="se.skl.skltpservices.ssekadapter.mule.OutboundSSEKHeaderInterceptor" />
 
     <!-- The common single jaxb-context for this mule-app -->
     <!-- Don't create additional jaxb-contexts to avoid problems with implicit jaxb transformations that can't resolve what jaxb-context to use! -->
@@ -92,9 +96,9 @@
                 <spring:entry key="route_logical_address"     value="#[groovy:message.getInvocationProperty('route-logical-address'    , '')]" />
                 <spring:entry key="route_service_soap_action" value="#[groovy:message.getInvocationProperty('route-service-soap-action', '')]" />
                 <spring:entry key="route_endpoint_url"        value="#[groovy:message.getInvocationProperty('route-endpoint-url'       , '')]" />
-                <spring:entry key="npo_transaction_id"        value="#[groovy:message.getOutboundProperty  ('npo_param_transaction_id' , '')]" />
-                <spring:entry key="npo_hsa_id"                value="#[groovy:message.getOutboundProperty  ('npo_param_hsa_id'         , '')]" />
-                <spring:entry key="npo_version"               value="#[groovy:message.getOutboundProperty  ('npo_param_version'        , '')]" />
+                <spring:entry key="ssek_transaction_id"        value="#[groovy:message.getOutboundProperty  ('ssek_param_transaction_id' , '')]" />
+                <spring:entry key="ssek_hsa_id"                value="#[groovy:message.getOutboundProperty  ('ssek_param_hsa_id'         , '')]" />
+                <spring:entry key="ssek_version"               value="#[groovy:message.getOutboundProperty  ('ssek_param_version'        , '')]" />
             </spring:map>
         </spring:property>
     </custom-transformer>

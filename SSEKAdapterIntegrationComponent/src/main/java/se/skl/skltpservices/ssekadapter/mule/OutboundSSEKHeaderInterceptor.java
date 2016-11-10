@@ -60,6 +60,11 @@ public class OutboundSSEKHeaderInterceptor extends AbstractSoapInterceptor {
         super(Phase.PRE_LOGICAL);
 	}	
 
+	private String senderId;
+	public void setSenderId(String senderId) {
+		this.senderId = senderId;
+	}
+	
 	@Override
 	public void handleMessage(SoapMessage message) throws Fault {
 		log.info("OutboundSSEKHeaderInterceptor started");
@@ -83,7 +88,6 @@ public class OutboundSSEKHeaderInterceptor extends AbstractSoapInterceptor {
         ssek_header.setAttribute(SOAP_MUSTUNDERSTAND, "1");
 
     	// Sender
-        String senderId = (String)event.getMessage().getInboundProperty(X_RIVTA_ORIGINAL_SERVICECONSUMER_HSAID, "");
 		log.info("senderId="+ senderId);
         Element sender = (Element) ssek_header.appendChild(buildMuleHeader(owner_doc, SSEK_SENDERID_PROPERTY,
             	senderId));
