@@ -7,7 +7,7 @@
                 http://www.mulesoft.org/schema/mule/core    http://www.mulesoft.org/schema/mule/core/current/mule.xsd
                 http://www.mulesoft.org/schema/mule/cxf     http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
         ">
-    <flow name="ssek-teststub-flow" >
+    <flow name="https-ssek-teststub-flow" >
 
         <inbound-endpoint address="${ENDPOINT_HTTPS_SSEK_STUB}"
                           connector-ref="soitoolkit-https-connector"
