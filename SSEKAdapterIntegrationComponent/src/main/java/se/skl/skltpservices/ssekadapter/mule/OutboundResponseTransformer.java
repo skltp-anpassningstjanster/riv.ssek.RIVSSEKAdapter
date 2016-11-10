@@ -38,7 +38,6 @@ public class OutboundResponseTransformer extends AbstractOutboundTransformer {
 
     @Override
     public Object transformMessage(final MuleMessage message, final String outputEncoding) throws TransformerException {
-        System.out.println(">>>>>>>>>>>>>>>>>>>>> response");
 
     	Sample sample = null;
     	try {

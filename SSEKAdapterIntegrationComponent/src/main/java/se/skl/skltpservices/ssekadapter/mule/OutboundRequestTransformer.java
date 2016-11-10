@@ -38,7 +38,6 @@ public class OutboundRequestTransformer extends AbstractOutboundTransformer {
 
     @Override
     public Object transformMessage(final MuleMessage message, final String outputEncoding) throws TransformerException {
-    	logger.info(">>>>>>>>>>>>>>>>>>> OutboundRequestTransformer started");
    	try {
             final Mapper mapper = getMapper(message);
             final Sample sample = new Sample(mapper.getClass().getSimpleName() + ".mapRequest");

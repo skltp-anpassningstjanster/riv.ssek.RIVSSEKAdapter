@@ -31,11 +31,9 @@ public class RIVRegisterMedicalCertificate extends RegisterMedicalCertificateMap
     @Override
     public MuleMessage mapRequest(final MuleMessage message) throws MapperException {
         try {
-            System.out.println(">>>>>>>>>>>>>>>>>>>0");
             final RegisterMedicalCertificateType request = unmarshal(payloadAsXMLStreamReader(message));
             // map to baseline model
             message.setPayload(marshal(request));
-            System.out.println(">>>>>>>>>>>>>>>>>>>" + message.getPayload());
             return message;
         } catch (Exception err) {
             throw new MapperException("Error when transforming request", err);
@@ -45,11 +43,9 @@ public class RIVRegisterMedicalCertificate extends RegisterMedicalCertificateMap
     @Override
     public MuleMessage mapResponse(final MuleMessage message) throws MapperException {
         try {
-            System.out.println(">>>>>>>>>>>>>>>>>>>1");
             final RegisterMedicalCertificateResponseType response = unmarshalResponse(payloadAsXMLStreamReader(message));
             // map to baseline model
             message.setPayload(marshal(response));
-            System.out.println(">>>>>>>>>>>>>>>>>>>" + message.getPayload());
             return message;
         } catch (Exception err) {
             throw new MapperException("Error when transforming response", err);
