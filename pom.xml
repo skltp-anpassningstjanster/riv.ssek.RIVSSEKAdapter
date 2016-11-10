@@ -22,7 +22,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <scm.url>http://github.com/skltp-anpassningstjanster/riv.en13606.NPOAdapterService</scm.url>
+        <scm.url>http://github.com/skltp-anpassningstjanster/riv.ssek.SSEKAdapter</scm.url>
         <mockito.version>1.9.5</mockito.version>
         <lombok.version>1.14.4</lombok.version>
         <dozer.version>5.5.1</dozer.version>
@@ -30,9 +30,9 @@
     </properties>
 
     <scm>
-      <url>http://github.com/skltp-anpassningstjanster/riv.en13606.NPOAdapterService</url>
-      <connection>scm:git:git://github.com/skltp-anpassningstjanster/riv.en13606.NPOAdapterService.git</connection>
-      <developerConnection>scm:git:git://github.com/skltp-anpassningstjanster/riv.en13606.NPOAdapterService.git</developerConnection>
+      <url>http://github.com/skltp-anpassningstjanster/riv.ssek.SSEKAdapter</url>
+      <connection>scm:git:git://github.com/skltp-anpassningstjanster/riv.ssek.SSEKAdapter.git</connection>
+      <developerConnection>scm:git:git://github.com/skltp-anpassningstjanster/riv.ssek.SSEKAdapter.git</developerConnection>
       <tag>HEAD</tag>
     </scm>
 
