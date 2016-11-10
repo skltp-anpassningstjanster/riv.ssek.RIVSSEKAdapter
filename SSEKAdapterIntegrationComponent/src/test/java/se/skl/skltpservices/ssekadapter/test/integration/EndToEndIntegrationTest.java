@@ -26,7 +26,10 @@ import static org.junit.Assert.fail;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.XMLConstants;
 import javax.xml.transform.Source;
@@ -35,10 +38,13 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.endpoint.Endpoint;
 import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
+import org.apache.cxf.message.Message;
 import org.apache.cxf.transport.http.HTTPConduit;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
+import org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor;
 import org.junit.Test;
 import org.mule.api.MuleEvent;
 import org.mule.construct.Flow;
@@ -85,6 +91,15 @@ public class EndToEndIntegrationTest extends AbstractIntegrationTestCase {
         final Client client = ClientProxy.getClient(service);
         ((HTTPConduit) client.getConduit()).setClient(policy);
 
+        // Creating HTTP headers
+        Map<String, List<String>> headers = new HashMap<String, List<String>>();
+        headers.put("x-vp-sender-id", Arrays.asList("TheSender"));
+        headers.put("x-rivta-original-serviceconsumer-hsaid", Arrays.asList("TheOriginalSender"));
+
+        // Add HTTP headers to the web service request
+        client.getRequestContext().put(Message.PROTOCOL_HEADERS, headers);
+         
+      
         return service;
     }
 
@@ -93,10 +108,10 @@ public class EndToEndIntegrationTest extends AbstractIntegrationTestCase {
 
     	final JaxWsProxyFactoryBean jaxWs = new JaxWsProxyFactoryBean();
 
-     
 		jaxWs.setServiceClass(RegisterMedicalCertificateResponderInterface.class);
 		jaxWs.setAddress(REGISTERMEDICALCERTIFICATE_ENDPOINT);
 		registerMedicalCertificateServicesInterface = (RegisterMedicalCertificateResponderInterface) create(jaxWs);
+		
     }		
     
     // RegisterMedicalCertificate
