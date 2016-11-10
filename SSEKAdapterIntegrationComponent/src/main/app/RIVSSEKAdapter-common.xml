@@ -90,15 +90,13 @@
         <spring:property name="jaxbContext" ref="jaxbContext"/>
         <spring:property name="extraInfo">
             <spring:map>
-<!-- 
-                <spring:entry key="adapter"                   value="adapter-type-1" />
-  -->
                 <spring:entry key="route_logical_address"     value="#[groovy:message.getInvocationProperty('route-logical-address'    , '')]" />
                 <spring:entry key="route_service_soap_action" value="#[groovy:message.getInvocationProperty('route-service-soap-action', '')]" />
                 <spring:entry key="route_endpoint_url"        value="#[groovy:message.getInvocationProperty('route-endpoint-url'       , '')]" />
-                <spring:entry key="ssek_transaction_id"        value="#[groovy:message.getOutboundProperty  ('ssek_param_transaction_id' , '')]" />
-                <spring:entry key="ssek_hsa_id"                value="#[groovy:message.getOutboundProperty  ('ssek_param_hsa_id'         , '')]" />
-                <spring:entry key="ssek_version"               value="#[groovy:message.getOutboundProperty  ('ssek_param_version'        , '')]" />
+                <spring:entry key="ssek_hsa_id"               value="${RIVSSEK_SENDER_ID}" />
+                <spring:entry key="ssek_sender_id"            value="#[groovy:message.getInboundProperty  ('x-vp-sender-id'        , '')]" />
+                <spring:entry key="ssek_original_sender_id"   value="#[groovy:message.getInboundProperty  ('x-rivta-original-serviceconsumer-hsaid' , '')]" />
+                <spring:entry key="ssek_version"              value="#[groovy:message.getOutboundProperty  ('ssek_param_version'        , '1.0')]" />
             </spring:map>
         </spring:property>
     </custom-transformer>
@@ -121,7 +119,6 @@
                 threadTTL="${RECEIVE_MAX_THREADS_TTL}"/>
     </configuration>
     
-
     <!-- Transformer check if HSA ID provided is on the hsa id white list
     <custom-transformer name="checkSenderHsaIdTransformer" class="se.skl.skltpservices.adapter.common.processor.CheckSenderHsaIdTransformer" doc:name="Check Sender HSA ID is on white HSA ID white list">
         <spring:property name="senderIdPropertyName" value="${CERT_SENDERID}" />
