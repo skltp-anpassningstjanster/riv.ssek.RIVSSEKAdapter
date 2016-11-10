@@ -44,13 +44,8 @@ public class OutboundRequestTransformer extends AbstractOutboundTransformer {
             try {
             	MuleMessage msg = mapper.mapRequest(message);
                 return sample.ok(msg);
-            } catch (Exception e) {
-				// TODO Auto-generated catch block
-				logger.error(e.getMessage());
-				return null;
 			} finally {
                 sample.end();
-            	logger.info("OutboundRequestTransformer done");
            }
         } catch (AdapterException err) {
             throw new TransformerException(this, err);

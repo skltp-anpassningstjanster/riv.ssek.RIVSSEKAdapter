@@ -8,13 +8,10 @@
     <flow name="outbound-dynamic-route-flow" >
 
         <cxf:proxy-client payload="body" >
-        
-        
 	        <cxf:outInterceptors>
 	        	<spring:ref bean="OutboundSSEKHeaderInterceptor" />
 	        </cxf:outInterceptors>
-	        
-	        </cxf:proxy-client>
+	    </cxf:proxy-client>
         
         <!-- objToStr only to be able to log payload (for debug) -->
         <transformer ref="objToStr" />

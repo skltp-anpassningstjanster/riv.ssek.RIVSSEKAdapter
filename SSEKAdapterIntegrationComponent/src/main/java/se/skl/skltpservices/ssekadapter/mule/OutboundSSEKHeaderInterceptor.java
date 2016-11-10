@@ -67,7 +67,6 @@ public class OutboundSSEKHeaderInterceptor extends AbstractSoapInterceptor {
 	
 	@Override
 	public void handleMessage(SoapMessage message) throws Fault {
-		log.info("OutboundSSEKHeaderInterceptor started");
 
         MuleEvent event = (MuleEvent) message.getExchange().get(CxfConstants.MULE_EVENT);
 
@@ -88,21 +87,21 @@ public class OutboundSSEKHeaderInterceptor extends AbstractSoapInterceptor {
         ssek_header.setAttribute(SOAP_MUSTUNDERSTAND, "1");
 
     	// Sender
-		log.info("senderId="+ senderId);
+		log.debug("senderId="+ senderId);
         Element sender = (Element) ssek_header.appendChild(buildMuleHeader(owner_doc, SSEK_SENDERID_PROPERTY,
             	senderId));
         sender.setAttribute(SSEK_TYPE, SSEK_ORGNR );
         
         // Receiver
         String receiverId=(String)event.getMessage().getInvocationProperty(ROUTE_LOGICAL_ADDRESS);
-		log.info("receiverId=" + receiverId);
+		log.debug("receiverId=" + receiverId);
         Element receiver = (Element) ssek_header.appendChild(buildMuleHeader(owner_doc, SSEK_RECEIVERID_PROPERTY,
         	receiverId));
         receiver.setAttribute(SSEK_TYPE, SSEK_ORGNR );
         
         // txId
         String corId = (String) event.getMessage().getProperty(UseOrCreateCorrelationIdTransformer.CORRELATION_ID, PropertyScope.SESSION, "" );
-		log.info("txId="+ corId);
+		log.debug("txId="+ corId);
         ssek_header.appendChild(buildMuleHeader(owner_doc, SSEK_TXID_PROPERTY,
                 corId));
 
