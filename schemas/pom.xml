@@ -16,7 +16,6 @@
     </properties>
 
     <modules>
-        <module>riv-schemas</module>
         <module>skltp-schemas</module>
         <module>healthreporting/insuranceprocess/schemas</module>
     </modules>
