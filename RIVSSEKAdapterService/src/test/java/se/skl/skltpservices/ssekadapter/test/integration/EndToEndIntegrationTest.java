@@ -38,13 +38,11 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import org.apache.cxf.endpoint.Client;
-import org.apache.cxf.endpoint.Endpoint;
 import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.transport.http.HTTPConduit;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
-import org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor;
 import org.junit.Test;
 import org.mule.api.MuleEvent;
 import org.mule.construct.Flow;
@@ -64,10 +62,12 @@ import se.inera.ifv.registermedicalcertificateresponder.v3.RegisterMedicalCertif
 public class EndToEndIntegrationTest extends AbstractIntegrationTestCase {
 
 	// TODO: Collect Endpoints from configuration
-    private static final String REGISTERMEDICALCERTIFICATE_ENDPOINT      = "http://localhost:33001/ssekadapter/registermedicalcertificate/v3";
+    private static final String REGISTERMEDICALCERTIFICATE_ENDPOINT = "http://localhost:33001/ssekadapter/registermedicalcertificate/v3";
 	
+	@SuppressWarnings("unused")
 	private static final String LOGICAL_ADDRESS_VS_1 = "VS-1";
     private static final String LOGICAL_ADDRESS_VS_2 = "VS-2";
+	@SuppressWarnings("unused")
 	private static final String INVALID_LOGICAL_ADDRESS = "XX000000-00";
 	
 	
@@ -93,13 +93,13 @@ public class EndToEndIntegrationTest extends AbstractIntegrationTestCase {
 
         // Creating HTTP headers
         Map<String, List<String>> headers = new HashMap<String, List<String>>();
+        headers.put("x-vp-instance-id", Arrays.asList("TheInstanceId"));
         headers.put("x-vp-sender-id", Arrays.asList("TheSender"));
         headers.put("x-rivta-original-serviceconsumer-hsaid", Arrays.asList("TheOriginalSender"));
 
         // Add HTTP headers to the web service request
         client.getRequestContext().put(Message.PROTOCOL_HEADERS, headers);
-         
-      
+
         return service;
     }
 
@@ -110,8 +110,8 @@ public class EndToEndIntegrationTest extends AbstractIntegrationTestCase {
 
 		jaxWs.setServiceClass(RegisterMedicalCertificateResponderInterface.class);
 		jaxWs.setAddress(REGISTERMEDICALCERTIFICATE_ENDPOINT);
-		registerMedicalCertificateServicesInterface = (RegisterMedicalCertificateResponderInterface) create(jaxWs);
-		
+		registerMedicalCertificateServicesInterface = 
+				(RegisterMedicalCertificateResponderInterface) create(jaxWs);		
     }		
     
     // RegisterMedicalCertificate
