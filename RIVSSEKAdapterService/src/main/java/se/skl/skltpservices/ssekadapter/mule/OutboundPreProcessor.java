@@ -39,7 +39,7 @@ import java.io.ByteArrayInputStream;
  * The consumer has sent a GetSomethingRequest to VP.
  * In EngagemangsIndex, this request has been associated with a producer.
  * The producer is identified by a logical address.
- * The GetSomethingRequest has been converted by the SSEKAdapter into a 13606 request.
+ * The GetSomethingRequest has been converted by the RIVSSEKAdapter into a SSEK request.
  * At this point, the message is ready to be sent to the producer.
  * We have a logical address, we need to find the route.
  * Routing data is held in TAK.

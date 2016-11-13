@@ -67,7 +67,7 @@ public class PingForConfigurationWS implements PingForConfigurationResponderInte
 
         // report PingForConfigurationResponse.version
         // extract implementation version from META-INF/MANIFEST.MF inside riv-schemas-x.y.z.jar
-        // this requires following settings in parent pom SSEKAdapter.Service/pom.xml
+        // this requires following settings in parent pom RIVSSEKAdapter.Service/pom.xml
         // <profiles>
         //        <profile>
         //            <id>license</id>

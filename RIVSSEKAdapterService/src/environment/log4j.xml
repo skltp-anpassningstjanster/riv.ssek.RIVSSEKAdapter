@@ -16,7 +16,7 @@
 	</appender>
 
     <appender name="ROLLINGFILE" class="org.apache.log4j.RollingFileAppender">
-        <param  name="file" value="${mule.home}/logs/mule-app-SSEKAdapterIntegrationComponent.log"/>
+        <param  name="file" value="${mule.home}/logs/mule-app-RIVSSEKAdapterService.log"/>
         <param name="MaxBackupIndex" value="10" />
         <param name="MaxFileSize" value="50MB" />
 

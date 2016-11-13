@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Stores routing information. 
  * Main routing is from RIV consumer to SSEK producer (care system).
- * Second routing for callback from SSEKAdapter to SSEK producer.
+ * Second routing for callback from RIVSSEKAdapter to SSEK producer.
  * <p/>
  *
  * Route data is serialized to a file store.
@@ -122,8 +122,8 @@ public class RouteData implements Serializable {
     //
     void setRoute(final String logicalAddress, final Route route) {
         if (map.containsKey(route.key(logicalAddress))) {
-            log.error("SSEKAdapter: Duplicate routes exists for: " + logicalAddress + ". " + route + " has been ignored/skipped");
-            log.info("SSEKAdapter: Current route for " + logicalAddress + " is " + getRoute(logicalAddress, route.isCallback()));
+            log.error("RIVSSEKAdapter: Duplicate routes exists for: " + logicalAddress + ". " + route + " has been ignored/skipped");
+            log.info("RIVSSEKAdapter: Current route for " + logicalAddress + " is " + getRoute(logicalAddress, route.isCallback()));
         } else {
             map.put(route.key(logicalAddress), route);
         }
@@ -137,9 +137,9 @@ public class RouteData implements Serializable {
             os.writeObject(routingData);
             os.flush();
             rc = true;
-            log.debug("SSEKAdapter: Successfully saved {} routes to file:{}", routingData.map.keySet().size(), fileName);
+            log.debug("RIVSSEKAdapter: Successfully saved {} routes to file:{}", routingData.map.keySet().size(), fileName);
         } catch (Exception e) {
-            log.error("SSEKAdapter: Unable to save route data to local file: " + fileName, e);
+            log.error("RIVSSEKAdapter: Unable to save route data to local file: " + fileName, e);
         } finally {
         	if(os != null) {
         		try {
@@ -159,9 +159,9 @@ public class RouteData implements Serializable {
         try {
             is = new ObjectInputStream(new FileInputStream(fileName));
             routingData = (RouteData) is.readObject();
-            log.debug("SSEKAdapter: Successfully loaded route data from file: " + fileName);
+            log.debug("RIVSSEKAdapter: Successfully loaded route data from file: " + fileName);
         } catch (Exception e) {
-            log.error("SSEKAdapter: Unable to load route data from local file: " + fileName, e);
+            log.error("RIVSSEKAdapter: Unable to load route data from local file: " + fileName, e);
         } finally {
         	if(is != null) {
         		try {

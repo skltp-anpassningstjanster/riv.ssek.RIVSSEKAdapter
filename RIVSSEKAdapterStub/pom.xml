@@ -9,7 +9,7 @@
 
   <parent>
     <groupId>se.skltp.adapterservices.ssekadapter</groupId>
-    <artifactId>SSEKAdapter</artifactId>
+    <artifactId>RIVSSEKAdapter</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 

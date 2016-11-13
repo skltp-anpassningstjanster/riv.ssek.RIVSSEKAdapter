@@ -96,25 +96,25 @@ public class Router implements MuleContextAware {
      * Checkout flow spec in file "update-tak-cache-service.xml"
      */
     public void reloadRoutingData() {
-        log.info("SSEKAdapter:  Received routing data relaod event");
+        log.info("RIVSSEKAdapter:  Received routing data relaod event");
         reloadRoutingData0();
     }
 
     //
     void reloadRoutingData0() {
         try {
-            log.info("SSEKAdapter:  loading routing data from TAK");
+            log.info("RIVSSEKAdapter:  loading routing data from TAK");
             final HamtaAllaVirtualiseringarResponseType data = getRoutingDataFromSource();
             log.info("retrieved {} VirtualiseringsInfo", data.getVirtualiseringsInfo().size());
             final RouteData routeData = toRouteData(data);
             RouteData.save(routeData, takCacheFilename);
             setRouteData(routeData);
         } catch (Throwable e) {
-            log.error("SSEKAdapter:  Unable to get routing data from TAK", e);
-            log.info("SSEKAdapter:  Trying with locally stored cache: " + takCacheFilename);
+            log.error("RIVSSEKAdapter:  Unable to get routing data from TAK", e);
+            log.info("RIVSSEKAdapter:  Trying with locally stored cache: " + takCacheFilename);
             final RouteData routeData = RouteData.load(takCacheFilename);
             if (routeData == null) {
-                log.error("SSEKAdapter:  FATAL ERROR, Can't get routing data from TAK or local cache file");
+                log.error("RIVSSEKAdapter:  FATAL ERROR, Can't get routing data from TAK or local cache file");
             } else {
                 setRouteData(routeData);
             }
@@ -248,11 +248,11 @@ public class Router implements MuleContextAware {
 
     @Override
     public void setMuleContext(MuleContext context) {
-        log.info("SSEKAdapter:  Mule context ready, schedule pre-loading of routing data");
+        log.info("RIVSSEKAdapter:  Mule context ready, schedule pre-loading of routing data");
         worker.schedule(new Runnable() {
             @Override
             public void run() {
-                log.info("SSEKAdapter:  Pre-load (initialize) routing data");
+                log.info("RIVSSEKAdapter:  Pre-load (initialize) routing data");
                 getRouteData();
             }
         }, 10, TimeUnit.SECONDS);
