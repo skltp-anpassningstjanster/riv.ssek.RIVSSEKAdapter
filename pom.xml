@@ -38,8 +38,8 @@
 
     <modules>
         <module>schemas</module>
-        <module>SSEKAdapterIntegrationComponent</module>
-        <module>SSEKAdapterStub</module>
+        <module>RIVSSEKAdapterService</module>
+        <module>RIVSSEKAdapterStub</module>
     </modules>
 
     <dependencyManagement>
