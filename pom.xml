@@ -22,7 +22,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <scm.url>http://github.com/skltp-anpassningstjanster/riv.ssek.SSEKAdapter</scm.url>
+        <scm.url>http://github.com/skltp-anpassningstjanster/riv.ssek.RIVSSEKAdapter</scm.url>
+        <scm.connection>scm:git:git://github.com/skltp-anpassningstjanster/riv.ssek.RIVSSEKAdapter.git</scm.connection>
         <mockito.version>1.9.5</mockito.version>
         <lombok.version>1.14.4</lombok.version>
         <dozer.version>5.5.1</dozer.version>
@@ -30,9 +31,9 @@
     </properties>
 
     <scm>
-      <url>http://github.com/skltp-anpassningstjanster/riv.ssek.SSEKAdapter</url>
-      <connection>scm:git:git://github.com/skltp-anpassningstjanster/riv.ssek.SSEKAdapter.git</connection>
-      <developerConnection>scm:git:git://github.com/skltp-anpassningstjanster/riv.ssek.SSEKAdapter.git</developerConnection>
+      <url>${scm.url}</url>
+      <connection>${scm.connection}</connection>
+      <developerConnection>${scm.connection}</developerConnection>
       <tag>HEAD</tag>
     </scm>
 
