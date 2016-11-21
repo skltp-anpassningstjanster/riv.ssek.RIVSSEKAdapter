@@ -81,7 +81,7 @@ public class SokVagvalWS implements SokVagvalsInfoInterface {
 
         final HamtaAllaVirtualiseringarResponseType responseType = new HamtaAllaVirtualiseringarResponseType();
         VirtualiseringsInfoType infoType = new VirtualiseringsInfoType();
-        infoType.setReceiverId("VS-1");
+        infoType.setReceiverId("SSEK-1");
         infoType.setRivProfil("RIVTABP20");
         infoType.setTjansteKontrakt(AbstractMapper.NS_RIV_RMC);
         infoType.setVirtualiseringsInfoId("ID-1");
@@ -91,7 +91,7 @@ public class SokVagvalWS implements SokVagvalsInfoInterface {
         responseType.getVirtualiseringsInfo().add(infoType);
 
         infoType = new VirtualiseringsInfoType();
-        infoType.setReceiverId("VS-2");
+        infoType.setReceiverId("SSEK-2");
         infoType.setRivProfil("RIVTABP20");
         infoType.setTjansteKontrakt(AbstractMapper.NS_RIV_RMC);
         infoType.setVirtualiseringsInfoId("ID-2");

@@ -65,8 +65,8 @@ public class EndToEndIntegrationTest extends AbstractIntegrationTestCase {
     private static final String REGISTERMEDICALCERTIFICATE_ENDPOINT = "http://localhost:33001/ssekadapter/registermedicalcertificate/v3";
 	
 	@SuppressWarnings("unused")
-	private static final String LOGICAL_ADDRESS_VS_1 = "VS-1";
-    private static final String LOGICAL_ADDRESS_VS_2 = "VS-2";
+	private static final String LOGICAL_ADDRESS_VS_1 = "SSEK-1";
+    private static final String LOGICAL_ADDRESS_VS_2 = "SSEK-2";
 	@SuppressWarnings("unused")
 	private static final String INVALID_LOGICAL_ADDRESS = "XX000000-00";
 	
@@ -151,10 +151,12 @@ public class EndToEndIntegrationTest extends AbstractIntegrationTestCase {
                 "/schemas/interactions/RegisterMedicalCertificateInteraction/RegisterMedicalCertificateResponder_3.1.xsd");
         
     }
-   
-
-    // ---
-    
+  
+    /**
+     * Validate xml against schema.
+     * @param element
+     * @param xsds
+     */
     private void validateXmlAgainstSchema(Object element, String ... xsds) {
         
         String xml = jaxbUtil.marshal(element);
