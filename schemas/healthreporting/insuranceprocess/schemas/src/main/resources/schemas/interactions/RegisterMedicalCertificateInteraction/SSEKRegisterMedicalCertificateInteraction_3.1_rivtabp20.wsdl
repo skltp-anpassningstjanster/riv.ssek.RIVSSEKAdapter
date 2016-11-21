@@ -33,6 +33,8 @@
 
 	<xs:annotation>
 		<xs:documentation>
+			Changed wsdl to be used for mock service.
+			
 			Tjänsteinteraktionens namn: RegisterMedicalCertificateInteraction
 			Beskrivning: 
 				Interaction to register a new medical certificate.
