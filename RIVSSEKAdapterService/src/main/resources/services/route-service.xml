@@ -7,7 +7,7 @@
 
     <flow name="outbound-dynamic-route-flow" >
 
-        <cxf:proxy-client payload="body" >
+        <cxf:proxy-client payload="body" enableMuleSoapHeaders="false">
 	        <cxf:outInterceptors>
 	        	<spring:ref bean="OutboundSSEKHeaderInterceptor" />
 	        </cxf:outInterceptors>

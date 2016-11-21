@@ -22,8 +22,8 @@
         <cxf:proxy-service namespace="urn:riv:insuranceprocess:healthreporting:RegisterMedicalCertificate:3:rivtabp20"
                            payload="body"
                            service="RegisterMedicalCertificateResponderService"
-                           wsdlLocation="classpath:/schemas/interactions/RegisterMedicalCertificateInteraction/RegisterMedicalCertificateInteraction_3.1_rivtabp20.wsdl" >
-        
+                           wsdlLocation="classpath:/schemas/interactions/RegisterMedicalCertificateInteraction/RegisterMedicalCertificateInteraction_3.1_rivtabp20.wsdl"
+                           enableMuleSoapHeaders="false" >       
         </cxf:proxy-service>
 
         <custom-transformer class="se.skl.skltpservices.ssekadapter.mule.OutboundRequestTransformer" />
