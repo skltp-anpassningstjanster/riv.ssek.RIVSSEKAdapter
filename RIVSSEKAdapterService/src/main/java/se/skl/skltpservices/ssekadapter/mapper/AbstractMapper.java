@@ -63,7 +63,7 @@ public abstract class AbstractMapper {
     public static final String INFO_UND_KON     = "und-kon";
     public static final String INFO_UPP         = "upp";
 
-    public static final String NS_RIV_RMC  = "urn:riv:insuranceprocess:healthreporting:RegisterMedicalCertificate:3:rivtabp20";
+    public static final String NS_RIV_RMC  = "urn:riv:insuranceprocess:healthreporting:RegisterMedicalCertificateResponder:3";
     
     static final String NS_REGISTERMEDICALCERTIFICATE_3 = "urn:riv:insuranceprocess:healthreporting:RegisterMedicalCertificate:3:rivtabp20";
     
