@@ -26,6 +26,7 @@ import org.mule.api.processor.MessageProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import se.skl.skltpservices.ssekadapter.mapper.error.RouteException;
 import se.skl.skltpservices.ssekadapter.router.RouteData;
 import se.skl.skltpservices.ssekadapter.router.Router;
 
@@ -77,6 +78,9 @@ public class OutboundPreProcessor implements MessageProcessor {
         	final XMLStreamReader reader = xmlInputFactory.createXMLStreamReader(new ByteArrayInputStream(payload));
         	final String logicalAddress = extractLogicalAddress(reader);
         	log.debug("Logical address: " + logicalAddress);
+        	
+        	if(logicalAddress == null || logicalAddress.length() == 0)
+        		throw new RouteException("Logical Address is missing");
 
         	final MuleMessage message = event.getMessage();
         	message.setInvocationProperty(ROUTE_LOGICAL_ADDRESS, (logicalAddress == null) ? "" : logicalAddress);
@@ -85,7 +89,7 @@ public class OutboundPreProcessor implements MessageProcessor {
         		message.setInvocationProperty(ROUTE_SERVICE_SOAP_ACTION, route.getSoapAction());
         		message.setInvocationProperty(ROUTE_ENDPOINT_URL, route.getUrl());
         	} else {
-        		log.error("Unable to find route to outbound system (source), logical address: \"{}\"", logicalAddress);
+        		throw new RouteException(String.format("Unable to find route to outbound system (source), logical address: \"%s\"", logicalAddress));
         	}
         } catch (Exception err) {
         	log.error("Unable to route to outbound system", err);
