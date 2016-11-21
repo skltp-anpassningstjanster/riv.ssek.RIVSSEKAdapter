@@ -19,7 +19,6 @@
  */
 package se.skl.skltpservices.ssekadapter.mapper;
 
-
 import javax.xml.bind.JAXBElement;
 import javax.xml.stream.XMLStreamReader;
 
@@ -54,33 +53,30 @@ public class RegisterMedicalCertificateMapper extends AbstractMapper implements 
                 "/schemas/interactions/RegisterMedicalCertificateInteraction/RegisterMedicalCertificateResponder_3.1.xsd");
     }
 
-
-    
     @Override
     public MuleMessage mapRequest(final MuleMessage message) throws MapperException {
         try {
             final RegisterMedicalCertificateType request = unmarshal(payloadAsXMLStreamReader(message));
-            message.setPayload(request);
+            // map to baseline model
+            message.setPayload(marshal(request));
             return message;
         } catch (Exception err) {
-            throw new MapperException("Error when mapping request", err);
+            throw new MapperException("Error when transforming request", err);
         }
     }
 
-
     @Override
     public MuleMessage mapResponse(final MuleMessage message) throws MapperException {
-    	try {
-    		final RegisterMedicalCertificateResponseType response = unmarshalResponse(payloadAsXMLStreamReader(message));
+        try {
+            final RegisterMedicalCertificateResponseType response = unmarshalResponse(payloadAsXMLStreamReader(message));
+            // map to baseline model
             message.setPayload(marshal(response));
             return message;
-    	} catch (Exception err) {
-    		throw new MapperException("Error when mapping response", err);
-    	}
+        } catch (Exception err) {
+            throw new MapperException("Error when transforming response", err);
+        }
     }
-
-
-
+    
     //
     protected RegisterMedicalCertificateType unmarshal(final XMLStreamReader reader) {
         try {
@@ -98,7 +94,6 @@ public class RegisterMedicalCertificateMapper extends AbstractMapper implements 
         }
     }
 
-
     protected String marshal(final RegisterMedicalCertificateResponseType response) {
         final JAXBElement<RegisterMedicalCertificateResponseType> el = objectFactory.createRegisterMedicalCertificateResponse(response);
         String xml = jaxb.marshal(el);
@@ -112,8 +107,6 @@ public class RegisterMedicalCertificateMapper extends AbstractMapper implements 
         validateXmlAgainstSchema(xml, log);
         return xml;
     }
-
-
 
 	public RegisterMedicalCertificateResponseType mapResponse(RegisterMedicalCertificateResponseType r,
 			MuleMessage mockMessage) {
