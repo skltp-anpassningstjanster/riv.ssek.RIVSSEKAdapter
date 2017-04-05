@@ -2,30 +2,25 @@
 <mule
         xmlns="http://www.mulesoft.org/schema/mule/core"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    	xmlns:https="http://www.mulesoft.org/schema/mule/https"
+    	xmlns:http="http://www.mulesoft.org/schema/mule/http"
         xsi:schemaLocation="
             http://www.mulesoft.org/schema/mule/https http://www.mulesoft.org/schema/mule/https/current/mule-https.xsd
             http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
         	http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
 
     <flow name="helloworld-flow">
-    	<composite-source>
-    
-	        <inbound-endpoint address="${IN_ENDPOINT_HELLO}" connector-ref="soitoolkit-http-connector"
-	                          exchange-pattern="request-response"
-	                          transformer-refs="objToStr logReqIn"
-	                          responseTransformer-refs="objToStr logRespOut" />
-	
-	        <inbound-endpoint address="${IN_ENDPOINT_HELLO}" connector-ref="soitoolkit-http-connector"
-	                          exchange-pattern="request-response"
-	                          transformer-refs="objToStr logReqIn"
-	                          responseTransformer-refs="objToStr logRespOut" />
-
-         </composite-source>
-        
-        <outbound-endpoint address="${OUT_ENDPOINT_HELLO}" connector-ref="soitoolkit-http-connector"
+   
+        <http:inbound-endpoint address="${IN_ENDPOINT_HELLO}" connector-ref="soitoolkit-http-connector"
                           exchange-pattern="request-response"
-                          transformer-refs="objToStr logReqOut"
-                          responseTransformer-refs="objToStr logRespIn" />
-        
+                          transformer-refs="objToStr logReqIn"
+                          responseTransformer-refs="objToStr logRespOut" />
+		
+
+       	<https:outbound-endpoint address="${ENDPOINT_HELLO}" connector-ref="soitoolkit-https-connector"
+                         exchange-pattern="request-response"
+                         transformer-refs="objToStr logReqOut"
+                         responseTransformer-refs="objToStr logRespIn" />
+
     </flow>
 </mule>

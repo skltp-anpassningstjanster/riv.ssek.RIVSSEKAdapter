@@ -10,7 +10,7 @@
     <flow name="http-helloworld-teststub-flow" >
 
         <inbound-endpoint address="${ENDPOINT_HELLO_STUB}"
-                          connector-ref="soitoolkit-http-connector"/>
+                          connector-ref="soitoolkit-https-connector"/>
 
         <cxf:jaxws-service serviceClass="org.ssek.schemas.helloworld._2011_11_17.wsdl.HelloWorldPortType" />
         
