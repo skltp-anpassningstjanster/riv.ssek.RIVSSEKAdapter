@@ -3,10 +3,16 @@
       xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml"
       xmlns:spring="http://www.springframework.org/schema/beans"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:http="http://www.mulesoft.org/schema/mule/http"
+      xmlns:https="http://www.mulesoft.org/schema/mule/https"
       xsi:schemaLocation="
         http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-current.xsd
         http://www.mulesoft.org/schema/mule/core        http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-        http://www.mulesoft.org/schema/mule/xml         http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd">
+        http://www.mulesoft.org/schema/mule/xml         http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd
+        http://www.mulesoft.org/schema/mule/https		http://www.mulesoft.org/schema/mule/https/current/mule-https.xsd
+		http://www.mulesoft.org/schema/mule/http		http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd"
+        
+        >
 
 
     <spring:bean id="propertyPlaceholder"
@@ -52,6 +58,7 @@
         <spring:import resource="classpath:teststub-services/exit-teststub-service.xml"/>
         <spring:import resource="classpath:teststub-services/http-ssek-teststub-service.xml"/>
         <spring:import resource="classpath:teststub-services/takvagval-teststub-service.xml"/>
+        <spring:import resource="classpath:teststub-services/http-helloworld-teststub-service.xml"/>
     </spring:beans>
 
 	<!-- Interceptors -->
@@ -118,7 +125,15 @@
                 maxThreadsActive="${RECEIVE_MAX_THREADS_ACTIVE}" maxThreadsIdle="${RECEIVE_MAX_THREADS_IDLE}"
                 threadTTL="${RECEIVE_MAX_THREADS_TTL}"/>
     </configuration>
-    
+ 
+	 <http:connector name="NoSessionConnector">
+	    <service-overrides sessionHandler="org.mule.session.NullSessionHandler"/>
+	</http:connector>
+	
+	<https:connector name="httpsNoSessionConnector">
+	     <service-overrides sessionHandler="org.mule.session.NullSessionHandler" />
+	</https:connector>
+  
     <!-- Transformer check if HSA ID provided is on the hsa id white list
     <custom-transformer name="checkSenderHsaIdTransformer" class="se.skl.skltpservices.adapter.common.processor.CheckSenderHsaIdTransformer" doc:name="Check Sender HSA ID is on white HSA ID white list">
         <spring:property name="senderIdPropertyName" value="${CERT_SENDERID}" />

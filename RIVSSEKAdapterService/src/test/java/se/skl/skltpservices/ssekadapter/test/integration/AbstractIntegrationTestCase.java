@@ -37,6 +37,7 @@ public abstract class AbstractIntegrationTestCase extends AbstractTestCase {
                 + ",RIVSSEKAdapter-config.xml"
                 + ",teststub-services/https-ssek-teststub-service.xml"
                 + ",teststub-services/http-ssek-teststub-service.xml"
-                + ",teststub-services/takvagval-teststub-service.xml";
+                + ",teststub-services/http-helloworld-teststub-service.xml"
+              + ",teststub-services/takvagval-teststub-service.xml";
     }
 }

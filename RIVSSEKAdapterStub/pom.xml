@@ -13,6 +13,10 @@
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
+	<properties>
+		<main.basedir>${project.parent.basedir}</main.basedir>
+	</properties>
+
   <dependencies>
     <dependency>
       <groupId>se.skltp.commons</groupId>
@@ -44,6 +48,11 @@
     <dependency>
       <groupId>se.skltp.adapterservices.ssekadapter</groupId>
       <artifactId>skltp-schemas</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>se.skltp.adapterservices.ssekadapter</groupId>
+      <artifactId>skandia-schemas</artifactId>
     </dependency>
 
 

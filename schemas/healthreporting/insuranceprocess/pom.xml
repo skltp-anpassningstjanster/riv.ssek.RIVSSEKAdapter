@@ -12,6 +12,7 @@
 
     <properties>
         <schema.path>${basedir}/src/main/resources/schemas</schema.path>
+	    <main.basedir>${project.parent.parent.basedir}</main.basedir>
     </properties>
 
 

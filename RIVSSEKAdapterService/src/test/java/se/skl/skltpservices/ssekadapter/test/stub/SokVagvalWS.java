@@ -99,6 +99,16 @@ public class SokVagvalWS implements SokVagvalsInfoInterface {
         infoType.setFromTidpunkt(fromNow(-2));
         infoType.setTomTidpunkt(null);
         responseType.getVirtualiseringsInfo().add(infoType);
+        
+        infoType = new VirtualiseringsInfoType();
+        infoType.setReceiverId("SSEK-3");
+        infoType.setRivProfil("RIVTABP20");
+        infoType.setTjansteKontrakt(AbstractMapper.NS_RIV_HWR);
+        infoType.setVirtualiseringsInfoId("ID-2");
+        infoType.setAdress(SpringPropertiesUtil.getProperty("OUT_ENDPOINT_HELLO_STUB"));
+        infoType.setFromTidpunkt(fromNow(-2));
+        infoType.setTomTidpunkt(null);
+        responseType.getVirtualiseringsInfo().add(infoType);
 
         
         return responseType;

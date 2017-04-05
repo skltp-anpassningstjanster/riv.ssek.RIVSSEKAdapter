@@ -64,7 +64,8 @@ public abstract class AbstractMapper {
     public static final String INFO_UPP         = "upp";
 
     public static final String NS_RIV_RMC  = "urn:riv:insuranceprocess:healthreporting:RegisterMedicalCertificateResponder:3";
-    
+    public static final String NS_RIV_HWR  = "http://schemas.ssek.org/helloworld/2011-11-17/wsdl/HelloWorldResponder";
+
     static final String NS_REGISTERMEDICALCERTIFICATE_3 = "urn:riv:insuranceprocess:healthreporting:RegisterMedicalCertificate:3:rivtabp20";
     
 

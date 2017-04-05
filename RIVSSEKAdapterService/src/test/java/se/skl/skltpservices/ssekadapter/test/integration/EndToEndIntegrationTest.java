@@ -47,6 +47,9 @@ import org.junit.Test;
 import org.mule.api.MuleEvent;
 import org.mule.construct.Flow;
 import org.soitoolkit.commons.mule.jaxb.JaxbUtil;
+import org.ssek.schemas.helloworld._2011_11_17.HelloWorldRequest;
+import org.ssek.schemas.helloworld._2011_11_17.HelloWorldResponse;
+import org.ssek.schemas.helloworld._2011_11_17.wsdl.HelloWorldPortType;
 import org.w3.wsaddressing10.AttributedURIType;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
@@ -63,6 +66,7 @@ public class EndToEndIntegrationTest extends AbstractIntegrationTestCase {
 
 	// TODO: Collect Endpoints from configuration
     private static final String REGISTERMEDICALCERTIFICATE_ENDPOINT = "http://localhost:33001/ssekadapter/registermedicalcertificate/v3";
+    private static final String HELLOWORLD_ENDPOINT = "http://localhost:33001/ssekadapter/hello/stub";
 	
 	@SuppressWarnings("unused")
 	private static final String LOGICAL_ADDRESS_VS_1 = "SSEK-1";
@@ -72,6 +76,7 @@ public class EndToEndIntegrationTest extends AbstractIntegrationTestCase {
 	
 	
 	private final RegisterMedicalCertificateResponderInterface registerMedicalCertificateServicesInterface;
+	private final HelloWorldPortType helloWorldInterface;
 
     
     JaxbUtil jaxbUtil = new JaxbUtil(RegisterMedicalCertificateResponseType.class);
@@ -111,8 +116,15 @@ public class EndToEndIntegrationTest extends AbstractIntegrationTestCase {
 		jaxWs.setServiceClass(RegisterMedicalCertificateResponderInterface.class);
 		jaxWs.setAddress(REGISTERMEDICALCERTIFICATE_ENDPOINT);
 		registerMedicalCertificateServicesInterface = 
-				(RegisterMedicalCertificateResponderInterface) create(jaxWs);		
-    }		
+				(RegisterMedicalCertificateResponderInterface) create(jaxWs);	
+		
+		
+    	final JaxWsProxyFactoryBean jaxWs1 = new JaxWsProxyFactoryBean();
+
+		jaxWs1.setServiceClass(HelloWorldPortType.class);
+		jaxWs1.setAddress(HELLOWORLD_ENDPOINT);
+		helloWorldInterface = 
+				(HelloWorldPortType) create(jaxWs1);    }		
     
     // RegisterMedicalCertificate
     
@@ -125,6 +137,16 @@ public class EndToEndIntegrationTest extends AbstractIntegrationTestCase {
 		assertFalse(resp.getResult()== null);
     }
 
+    @Test
+    public void HelloWorldSuccessTest() {
+    	AttributedURIType u = new AttributedURIType();
+    	u.setValue(LOGICAL_ADDRESS_VS_2);
+    	HelloWorldRequest body = new HelloWorldRequest();
+    	body.setMessage("Hi!");
+		HelloWorldResponse resp = helloWorldInterface.helloWorld(body );
+		assertFalse(resp.getMessage() == null);
+    }
+    
     @Test
     public void RegisterMedicalCertificateNotFoundTest() {
     	AttributedURIType u = new AttributedURIType();

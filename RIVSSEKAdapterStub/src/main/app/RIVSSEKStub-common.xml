@@ -3,6 +3,7 @@
       xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml"
       xmlns:spring="http://www.springframework.org/schema/beans"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:http="http://www.mulesoft.org/schema/mule/http"
       xsi:schemaLocation="
         http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-current.xsd
         http://www.mulesoft.org/schema/mule/core        http://www.mulesoft.org/schema/mule/core/current/mule.xsd
@@ -78,5 +79,7 @@
                 threadTTL="${RECEIVE_MAX_THREADS_TTL}"/>
     </configuration>
 
-
+	<http:connector name="NoSessionConnector">
+	    <service-overrides sessionHandler="org.mule.session.NullSessionHandler"/>
+	</http:connector>
 </mule>
