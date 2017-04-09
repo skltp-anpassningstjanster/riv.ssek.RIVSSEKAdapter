@@ -13,8 +13,8 @@
                           connector-ref="soitoolkit-http-connector"/>
 
         <cxf:jaxws-service
-                serviceClass="org.ssek.schemas.helloworld._2011_11_17.wsdl.HelloWorldPortType"
-                ></cxf:jaxws-service>
+                serviceClass="org.ssek.schemas.helloworld._2011_11_17.wsdl.HelloWorldPortType" />
+                
         <component>
             <singleton-object class="se.skl.skltpservices.ssekadapter.test.stub.HelloWorldWS"  />
         </component>

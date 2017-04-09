@@ -13,23 +13,15 @@
 
 
 
-	<flow name="helloworld-flow">
-
-		<http:inbound-endpoint address="${IN_ENDPOINT_HELLO}"
-			connector-ref="soitoolkit-http-connector" exchange-pattern="request-response"
-			transformer-refs="objToStr logReqIn" responseTransformer-refs="objToStr logRespOut" />
+	<flow name="validating-flow">
 
 		<cxf:proxy-client payload="envelope">
-			<cxf:outInterceptors>
-				<spring:ref bean="outbound-security" />
-			</cxf:outInterceptors>
+			<cxf:inInterceptors>
+				<spring:ref bean="inbound-security" />
+			</cxf:inInterceptors>
 		</cxf:proxy-client>
-		
-		<https:outbound-endpoint address="${ENDPOINT_HELLO}"
-			connector-ref="soitoolkit-https-connector" exchange-pattern="request-response"
-			transformer-refs="objToStr logReqOut" responseTransformer-refs="objToStr logRespIn">
 
-		</https:outbound-endpoint>
+        <custom-exception-strategy class="org.soitoolkit.commons.mule.error.ServiceExceptionStrategy"/>
 
 	</flow>
 </mule>
