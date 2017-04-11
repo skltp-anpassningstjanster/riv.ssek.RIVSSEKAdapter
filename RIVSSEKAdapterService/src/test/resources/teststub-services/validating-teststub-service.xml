@@ -17,6 +17,7 @@
 
 		<cxf:proxy-client payload="envelope">
 			<cxf:inInterceptors>
+                <spring:bean class="org.apache.cxf.binding.soap.saaj.SAAJInInterceptor" />
 				<spring:ref bean="inbound-security" />
 			</cxf:inInterceptors>
 		</cxf:proxy-client>

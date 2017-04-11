@@ -17,10 +17,11 @@
 
 		<cxf:proxy-client payload="envelope">
 			<cxf:outInterceptors>
+				<spring:ref bean="wSSPassThroughInterceptor" />
+                <spring:bean class="org.apache.cxf.binding.soap.saaj.SAAJOutInterceptor" />
 				<spring:ref bean="outbound-security" />
 			</cxf:outInterceptors>
 		</cxf:proxy-client>
-
 
 	</flow>
 </mule>

@@ -154,5 +154,6 @@
           </spring:constructor-arg>
         </spring:bean>
 
+        <spring:bean class="se.skl.skltpservices.ssekadapter.util.WSSPassThroughInterceptor" id="wSSPassThroughInterceptor" />
         
 </mule>
