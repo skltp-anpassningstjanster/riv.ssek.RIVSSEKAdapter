@@ -1,26 +1,38 @@
 <mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf"
-      xmlns="http://www.mulesoft.org/schema/mule/core"
-	    xmlns:spring="http://www.springframework.org/schema/beans" 
-      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core        http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-                http://www.mulesoft.org/schema/mule/cxf         http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd">
+	xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:spring="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core        https://www.mulesoft.org/schema/mule/core/3.3/mule.xsd
+                http://www.mulesoft.org/schema/mule/cxf         https://www.mulesoft.org/schema/mule/cxf/3.3/mule-cxf.xsd">
 
-    <flow name="outbound-dynamic-route-flow" >
+	<flow name="outbound-dynamic-route-flow">
+		
+		<!-- objToStr only to be able to log payload (for debug) -->
+	    <object-to-string-transformer />	
+		<transformer ref="logReqOut" />
 
-        <cxf:proxy-client payload="body" enableMuleSoapHeaders="false">
-	        <cxf:outInterceptors>
-	        	<spring:ref bean="OutboundSSEKHeaderInterceptor" />
-	        </cxf:outInterceptors>
-	    </cxf:proxy-client>
-        
-        <!-- objToStr only to be able to log payload (for debug) -->
-        <transformer ref="objToStr" />
-        <transformer ref="logReqOut" />        
-        <processor ref="route-processor" />
-        <transformer ref="objToStr" />
-        <transformer ref="logRespIn" />
-        
-        <custom-exception-strategy class="org.soitoolkit.commons.mule.error.ServiceExceptionStrategy" />
-    </flow>
+		<cxf:proxy-client payload="body" enableMuleSoapHeaders="false">
+			
+			<cxf:inInterceptors>
+				<spring:ref bean="wSSPassThroughInterceptor" />
+				<spring:ref bean="inbound-security" />
+			</cxf:inInterceptors>
+			
+            <cxf:outInterceptors>
+				<spring:ref bean="outboundSSEKHeaderInterceptor" />				
+                <spring:bean class="org.apache.cxf.binding.soap.saaj.SAAJOutInterceptor" />
+				<spring:ref bean="outbound-security" />
+			</cxf:outInterceptors>
+
+		</cxf:proxy-client>
+		
+		<!-- objToStr only to be able to log payload (for debug) -->
+	    <object-to-string-transformer />	
+		<transformer ref="logReqOut" />
+
+		<processor ref="route-processor" />
+
+		<custom-exception-strategy
+			class="org.soitoolkit.commons.mule.error.ServiceExceptionStrategy" />
+	</flow>
 
 </mule>

@@ -68,6 +68,10 @@
         <spring:property name="senderId" value="${RIVSSEK_SENDER_ID}"/>	
 	</spring:bean>
 
+	<spring:bean id="mockSSEKHeaderInterceptor" name="mockSSEKHeaderInterceptor" class="se.skl.skltpservices.ssekadapter.mule.OutboundSSEKHeaderInterceptor">
+        <spring:property name="senderId" value="${RIVSSEK_SENDER_ID}"/>	
+	</spring:bean>
+
     <!-- Common connectors and endpoints, i.e. that not needs to be changed for different config-files (local unit-test, integration-test or production environments) -->
 
     <spring:beans>
@@ -128,7 +132,8 @@
     </configuration>
 
 
- <!-- WSS4JOutInterceptor for signing outbound SOAP --> 
+ <!-- WSS4JOutInterceptor for signing messages
+      An alternative is to use cxf:ws-security --> 
 
         <spring:bean class="org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor" id="outbound-security">
           <spring:constructor-arg>
@@ -144,6 +149,9 @@
           </spring:constructor-arg>
         </spring:bean>
 
+ <!-- WSS4JOutInterceptor for validating signed messages
+      An alternative is to use cxf:ws-security --> 
+
         <spring:bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor" id="inbound-security">
           <spring:constructor-arg>
             <spring:map>
@@ -155,5 +163,7 @@
         </spring:bean>
 
         <spring:bean class="se.skl.skltpservices.ssekadapter.util.WSSPassThroughInterceptor" id="wSSPassThroughInterceptor" />
+
+	<spring:bean class="se.skl.skltpservices.ssekadapter.mule.MyMessageTransformer"  id="myMsgTransf" />
         
 </mule>

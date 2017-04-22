@@ -107,6 +107,25 @@ public abstract class AbstractMapper {
      * @param message the message.
      * @return the payload as the expected reader.
      */
+    protected Object payloadAsObject(final MuleMessage message) {
+    	log.debug("Message payload is of type " + message.getPayload().getClass());
+        if (message.getPayload() instanceof Object[]) {
+            final Object[] payload = (Object[]) message.getPayload();
+            if (payload.length > 1 && payload[1] instanceof XMLStreamReader) {
+                return (XMLStreamReader) payload[1];
+            }
+        } else if (message.getPayload() instanceof  XMLStreamReader) {
+            return (XMLStreamReader) message.getPayload();
+        } else if(message.getPayload() instanceof  String)
+			try {
+				return message.getPayloadAsString();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        throw new IllegalArgumentException("Unexpected type of message payload (an Object[] with XMLStreamReader was expected): " + message.getPayload());
+    }
+
     protected XMLStreamReader payloadAsXMLStreamReader(final MuleMessage message) {
         if (message.getPayload() instanceof Object[]) {
             final Object[] payload = (Object[]) message.getPayload();

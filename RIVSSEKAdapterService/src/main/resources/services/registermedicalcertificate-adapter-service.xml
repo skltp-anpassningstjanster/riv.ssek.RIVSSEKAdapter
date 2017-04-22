@@ -4,8 +4,12 @@
         xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf"
         xmlns="http://www.mulesoft.org/schema/mule/core"
 	    xmlns:spring="http://www.springframework.org/schema/beans" 
+	    xmlns:ws="http://www.mulesoft.org/schema/mule/ws"
+       xmlns:mxml="http://www.mulesoft.org/schema/mule/xml"
         xsi:schemaLocation="
-                http://www.mulesoft.org/schema/mule/core    http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+        http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/3.3/mule-ws.xsd
+       http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/3.3/mule-xml.xsd
+                http://www.mulesoft.org/schema/mule/core    http://www.mulesoft.org/schema/mule/core/3.3/mule.xsd
                 http://www.mulesoft.org/schema/mule/cxf     http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
         ">
 
@@ -17,18 +21,27 @@
                           transformer-refs="create-correlation-id objToStr logReqIn"
                           responseTransformer-refs="createSoapFaultTransformer objToStr logRespOut"/>
 
+		<!-- Extract logical address -->
         <processor ref="pre-processor" />
 
         <cxf:proxy-service namespace="urn:riv:insuranceprocess:healthreporting:RegisterMedicalCertificate:3:rivtabp20"
                            payload="body"
                            service="RegisterMedicalCertificateResponderService"
                            wsdlLocation="classpath:/schemas/interactions/RegisterMedicalCertificateInteraction/RegisterMedicalCertificateInteraction_3.1_rivtabp20.wsdl"
-                           enableMuleSoapHeaders="false" >       
+                           enableMuleSoapHeaders="false" >  
+                                
         </cxf:proxy-service>
 
         <custom-transformer class="se.skl.skltpservices.ssekadapter.mule.OutboundRequestTransformer" />
-
+		
+		<logger message=">>>>>>>>>>>>>>212" level="ERROR" category="messageLogger"></logger>
+		<object-to-string-transformer />	
+		<transformer ref="logReqOut" />
+		
         <flow-ref name="outbound-dynamic-route-flow" />
+
+		<transformer ref="objToStr" />
+		<transformer ref="logReqOut" />
 
         <response>
             <custom-transformer class="se.skl.skltpservices.ssekadapter.mule.OutboundResponseTransformer" />

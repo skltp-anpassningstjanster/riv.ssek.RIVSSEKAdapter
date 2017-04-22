@@ -14,6 +14,7 @@ public class WSSPassThroughInterceptor extends AbstractSoapInterceptor {
 
     private static final Set<QName> HEADERS = new HashSet<QName>(); 
     static { 
+        HEADERS.add(new QName(WSConstants.URI_SOAP11_ENV, WSConstants.ELEM_ENVELOPE)); 
         HEADERS.add(new QName(WSConstants.WSSE_NS, WSConstants.WSSE_LN)); 
         HEADERS.add(new QName(WSConstants.WSSE11_NS, WSConstants.WSSE_LN)); 
         HEADERS.add(new QName(WSConstants.ENC_NS, WSConstants.ENC_DATA_LN)); 

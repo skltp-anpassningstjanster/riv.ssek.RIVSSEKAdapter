@@ -19,6 +19,19 @@
  */
 package se.skl.skltpservices.ssekadapter.mapper;
 
+import java.io.ByteArrayInputStream;
+import java.io.StringWriter;
+
+import javax.xml.soap.MessageFactory;
+import javax.xml.soap.MimeHeaders;
+import javax.xml.soap.SOAPBody;
+import javax.xml.soap.SOAPConstants;
+import javax.xml.soap.SOAPMessage;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.apache.cxf.binding.soap.SoapMessage;
 import org.mule.api.MuleMessage;
 
 import se.inera.ifv.registermedicalcertificateresponder.v3.RegisterMedicalCertificateResponseType;
@@ -31,7 +44,7 @@ public class RIVRegisterMedicalCertificate extends RegisterMedicalCertificateMap
     @Override
     public MuleMessage mapRequest(final MuleMessage message) throws MapperException {
         try {
-            final RegisterMedicalCertificateType request = unmarshal(payloadAsXMLStreamReader(message));
+            final RegisterMedicalCertificateType request = unmarshal(payloadAsObject(message));
             // map to baseline model
             message.setPayload(marshal(request));
             return message;
@@ -42,10 +55,15 @@ public class RIVRegisterMedicalCertificate extends RegisterMedicalCertificateMap
 
     @Override
     public MuleMessage mapResponse(final MuleMessage message) throws MapperException {
-        try {
-            final RegisterMedicalCertificateResponseType response = unmarshalResponse(payloadAsXMLStreamReader(message));
+    	Object pl = null;
+    	try {
+{
+        		pl = payloadAsObject(message);
+        	}
+
+            final RegisterMedicalCertificateResponseType response = unmarshalResponse(pl);
             // map to baseline model
-            message.setPayload(marshal(response));
+            //message.setPayload(marshal(response));
             return message;
         } catch (Exception err) {
             throw new MapperException("Error when transforming response", err);

@@ -50,7 +50,9 @@ public class RegisterMedicalCertificateMapper extends AbstractMapper implements 
                 "/schemas/core_components/Insuranceprocess_healthreporting_2.0.xsd",               
                 "/schemas/core_components/MU7263-RIV_3.1.xsd",
                 "/schemas/core_components/MedicalCertificateQuestionsAnswers_1.0.xsd",
-                "/schemas/interactions/RegisterMedicalCertificateInteraction/RegisterMedicalCertificateResponder_3.1.xsd");
+                "/schemas/interactions/RegisterMedicalCertificateInteraction/RegisterMedicalCertificateResponder_3.1.xsd",
+                "/schemas/oasis-200401-wss-wssecurity-utility-1.0.xsd",
+                "/schemas/oasis-200401-wss-wssecurity-secext-1.0.xsd");
     }
 
     @Override
@@ -68,7 +70,7 @@ public class RegisterMedicalCertificateMapper extends AbstractMapper implements 
     @Override
     public MuleMessage mapResponse(final MuleMessage message) throws MapperException {
         try {
-            final RegisterMedicalCertificateResponseType response = unmarshalResponse(payloadAsXMLStreamReader(message));
+            final RegisterMedicalCertificateResponseType response = unmarshalResponse(message.getPayloadAsString());
             // map to baseline model
             message.setPayload(marshal(response));
             return message;
@@ -78,23 +80,23 @@ public class RegisterMedicalCertificateMapper extends AbstractMapper implements 
     }
     
     //
-    protected RegisterMedicalCertificateType unmarshal(final XMLStreamReader reader) {
+    protected RegisterMedicalCertificateType unmarshal(final Object message) {
         try {
-            return  (RegisterMedicalCertificateType) jaxb.unmarshal(reader);
+            return  (RegisterMedicalCertificateType) jaxb.unmarshal(message);
         } finally {
-            close(reader);
-        }
+        	if(message instanceof XMLStreamReader)
+        		close((XMLStreamReader)message);        }
     }
 
-    protected RegisterMedicalCertificateResponseType unmarshalResponse(final XMLStreamReader reader) {
+    protected RegisterMedicalCertificateResponseType unmarshalResponse(final Object message) {
         try {
-            return  (RegisterMedicalCertificateResponseType) jaxb.unmarshal(reader);
+            return  (RegisterMedicalCertificateResponseType) jaxb.unmarshal(message);
         } finally {
-            close(reader);
+        	if(message instanceof XMLStreamReader)
+        		close((XMLStreamReader)message);
         }
     }
-
-    protected String marshal(final RegisterMedicalCertificateResponseType response) {
+   protected String marshal(final RegisterMedicalCertificateResponseType response) {
         final JAXBElement<RegisterMedicalCertificateResponseType> el = objectFactory.createRegisterMedicalCertificateResponse(response);
         String xml = jaxb.marshal(el);
         validateXmlAgainstSchema(xml, log);
