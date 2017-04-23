@@ -3,10 +3,16 @@
       xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml"
       xmlns:spring="http://www.springframework.org/schema/beans"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:http="http://www.mulesoft.org/schema/mule/http"
+      xmlns:https="http://www.mulesoft.org/schema/mule/https"
       xsi:schemaLocation="
         http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans-current.xsd
         http://www.mulesoft.org/schema/mule/core        http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-        http://www.mulesoft.org/schema/mule/xml         http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd">
+        http://www.mulesoft.org/schema/mule/xml         http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd
+        http://www.mulesoft.org/schema/mule/https		http://www.mulesoft.org/schema/mule/https/current/mule-https.xsd
+		http://www.mulesoft.org/schema/mule/http		http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd"
+        
+        >
 
 
     <spring:bean id="propertyPlaceholder"
@@ -17,6 +23,7 @@
                 <!-- Only available in development env, e.g. Eclipse -->
                 <spring:value>classpath:RIVSSEKAdapter-config.properties</spring:value>
                 <spring:value>classpath:RIVSSEKAdapter-config-override.properties</spring:value>
+                <spring:value>classpath:RIVSSEKAdapter-sign-security.properties</spring:value>
             </spring:list>
         </spring:property>
     </spring:bean>
@@ -52,11 +59,16 @@
         <spring:import resource="classpath:teststub-services/exit-teststub-service.xml"/>
         <spring:import resource="classpath:teststub-services/http-ssek-teststub-service.xml"/>
         <spring:import resource="classpath:teststub-services/takvagval-teststub-service.xml"/>
+        <spring:import resource="classpath:teststub-services/http-helloworld-teststub-service.xml"/>
     </spring:beans>
 
 	<!-- Interceptors -->
 	
-	<spring:bean id="OutboundSSEKHeaderInterceptor" name="OutboundSSEKHeaderInterceptor" class="se.skl.skltpservices.ssekadapter.mule.OutboundSSEKHeaderInterceptor">
+	<spring:bean id="outboundSSEKHeaderInterceptor" name="outboundSSEKHeaderInterceptor" class="se.skl.skltpservices.ssekadapter.mule.OutboundSSEKHeaderInterceptor">
+        <spring:property name="senderId" value="${RIVSSEK_SENDER_ID}"/>	
+	</spring:bean>
+
+	<spring:bean id="mockSSEKHeaderInterceptor" name="mockSSEKHeaderInterceptor" class="se.skl.skltpservices.ssekadapter.mule.OutboundSSEKHeaderInterceptor">
         <spring:property name="senderId" value="${RIVSSEK_SENDER_ID}"/>	
 	</spring:bean>
 
@@ -118,13 +130,40 @@
                 maxThreadsActive="${RECEIVE_MAX_THREADS_ACTIVE}" maxThreadsIdle="${RECEIVE_MAX_THREADS_IDLE}"
                 threadTTL="${RECEIVE_MAX_THREADS_TTL}"/>
     </configuration>
-    
-    <!-- Transformer check if HSA ID provided is on the hsa id white list
-    <custom-transformer name="checkSenderHsaIdTransformer" class="se.skl.skltpservices.adapter.common.processor.CheckSenderHsaIdTransformer" doc:name="Check Sender HSA ID is on white HSA ID white list">
-        <spring:property name="senderIdPropertyName" value="${CERT_SENDERID}" />
-        <spring:property name="whiteList" value="${FK_WHITE_LIST}" />
-        <spring:property name="certificatesKey" value="${CERTIFICATE_KEY}" />
-    </custom-transformer>
-    -->
 
+
+ <!-- WSS4JOutInterceptor for signing messages
+      An alternative is to use cxf:ws-security --> 
+
+        <spring:bean class="org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor" id="outbound-security">
+          <spring:constructor-arg>
+            <spring:map>
+              <spring:entry key="action" value="Timestamp Signature" />
+              <spring:entry key="signaturePropFile" value="RIVSSEKAdapter-sign-security.properties" />
+              <spring:entry key="passwordCallbackClass" value="se.skl.skltpservices.ssekadapter.util.SignKeystorePasswordCallback"/>
+              <spring:entry key="signatureKeyIdentifier" value="DirectReference" />
+              <spring:entry key="signatureUser" value="${SIGNATURE_USER}" />
+              <spring:entry key="user" value="${SIGNATURE_USER}" />
+              <spring:entry key="signatureParts" value="{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;{Element}{http://schemas.xmlsoap.org/soap/envelope/}Body;{Element}{http://schemas.ssek.org/ssek/2006-05-10/}SSEK"/>
+            </spring:map>
+          </spring:constructor-arg>
+        </spring:bean>
+
+ <!-- WSS4JOutInterceptor for validating signed messages
+      An alternative is to use cxf:ws-security --> 
+
+        <spring:bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor" id="inbound-security">
+          <spring:constructor-arg>
+            <spring:map>
+              <spring:entry key="action" value="Timestamp Signature" />
+              <spring:entry key="signaturePropFile" value="RIVSSEKAdapter-sign-security.properties" />
+              <spring:entry key="passwordCallbackClass" value="se.skl.skltpservices.ssekadapter.util.SignKeystorePasswordCallback"/>
+            </spring:map>
+          </spring:constructor-arg>
+        </spring:bean>
+
+        <spring:bean class="se.skl.skltpservices.ssekadapter.util.WSSPassThroughInterceptor" id="wSSPassThroughInterceptor" />
+
+	<spring:bean class="se.skl.skltpservices.ssekadapter.mule.MyMessageTransformer"  id="myMsgTransf" />
+        
 </mule>
