@@ -19,8 +19,6 @@
  */
 package se.skl.skltpservices.ssekadapter.mule;
 
-import static se.skl.skltpservices.ssekadapter.mule.OutboundPreProcessor.ROUTE_LOGICAL_ADDRESS;
-
 import javax.xml.bind.JAXBException;
 import javax.xml.namespace.QName;
 
@@ -38,7 +36,7 @@ import org.slf4j.LoggerFactory;
 import org.w3.wsaddressing10.AttributedURIType;
 import org.apache.cxf.message.Message;
 
-public class OutboundSSEKHeaderInterceptor extends AbstractPhaseInterceptor<Message> {
+public class MockSSEKHeaderInterceptor extends AbstractPhaseInterceptor<Message> {
 	
 	private static final Logger log = LoggerFactory.getLogger(OutboundSSEKHeaderInterceptor.class);
 
@@ -51,11 +49,11 @@ public class OutboundSSEKHeaderInterceptor extends AbstractPhaseInterceptor<Mess
     protected static final QName CUSTOM_HEADER_TO = new QName(TO_NS_URI, "To", "add");
     
 
-	public OutboundSSEKHeaderInterceptor() {
+	public MockSSEKHeaderInterceptor() {
         super(Phase.PRE_PROTOCOL);
 	}	
 
-    public OutboundSSEKHeaderInterceptor(String phase) {
+    public MockSSEKHeaderInterceptor(String phase) {
         super(phase);
     }
     
@@ -86,7 +84,7 @@ public class OutboundSSEKHeaderInterceptor extends AbstractPhaseInterceptor<Mess
 		log.debug("senderId="+ senderId);
         
         // Receiver
-        String receiverId=(String)event.getMessage().getInvocationProperty(ROUTE_LOGICAL_ADDRESS);
+        String receiverId="SSEK-2";
 		log.debug("receiverId=" + receiverId);
         
         // txId
@@ -107,16 +105,8 @@ public class OutboundSSEKHeaderInterceptor extends AbstractPhaseInterceptor<Mess
     		log.error("Failed to create SSEK header", e);
         }
         
-    	AttributedURIType u = new AttributedURIType();
-    	u.setValue(receiverId);
-        try {
-            header = new SoapHeader(CUSTOM_HEADER_TO, u, new JAXBDataBinding(AttributedURIType.class));
-            m.getHeaders().add(header);
-        } catch (JAXBException e) {
-       		log.error("Failed to create RIV To header", e);
-        }
     	
-		log.info("OutboundSSEKHeaderInterceptor done. Nr of headers= " + m.getHeaders().size());
+		log.info("MockSSEKHeaderInterceptor done. Nr of headers= " + m.getHeaders().size());
 
 	}
 
