@@ -28,6 +28,7 @@
         <lombok.version>1.14.4</lombok.version>
         <dozer.version>5.5.1</dozer.version>
         <mule.version>3.3.1</mule.version>
+	    <main.basedir>${project.basedir}</main.basedir>
     </properties>
 
     <scm>
@@ -62,6 +63,12 @@
             <dependency>
                 <groupId>se.skltp.adapterservices.ssekadapter</groupId>
                 <artifactId>skltp-schemas</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>se.skltp.adapterservices.ssekadapter</groupId>
+                <artifactId>skandia-schemas</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -139,8 +146,8 @@
                             <product>SKLTP</product>
                         </properties>
                         <strictCheck>true</strictCheck>
-                        <basedir>${basedir}</basedir>
-                        <header>./license/lgpl/header.txt</header>
+                        <basedir>${main.basedir}</basedir>
+                        <header>${main.basedir}/license/lgpl/header.txt</header>
                         <encoding>UTF-8</encoding>
                         <includes>
                             <include>src/main/**</include>
