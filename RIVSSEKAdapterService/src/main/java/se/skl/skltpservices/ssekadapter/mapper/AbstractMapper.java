@@ -64,7 +64,8 @@ public abstract class AbstractMapper {
     public static final String INFO_UPP         = "upp";
 
     public static final String NS_RIV_RMC  = "urn:riv:insuranceprocess:healthreporting:RegisterMedicalCertificateResponder:3";
-    
+    public static final String NS_RIV_HWR  = "http://schemas.ssek.org/helloworld/2011-11-17/wsdl/HelloWorldResponder";
+
     static final String NS_REGISTERMEDICALCERTIFICATE_3 = "urn:riv:insuranceprocess:healthreporting:RegisterMedicalCertificate:3:rivtabp20";
     
 
@@ -106,6 +107,25 @@ public abstract class AbstractMapper {
      * @param message the message.
      * @return the payload as the expected reader.
      */
+    protected Object payloadAsObject(final MuleMessage message) {
+    	log.debug("Message payload is of type " + message.getPayload().getClass());
+        if (message.getPayload() instanceof Object[]) {
+            final Object[] payload = (Object[]) message.getPayload();
+            if (payload.length > 1 && payload[1] instanceof XMLStreamReader) {
+                return (XMLStreamReader) payload[1];
+            }
+        } else if (message.getPayload() instanceof  XMLStreamReader) {
+            return (XMLStreamReader) message.getPayload();
+        } else if(message.getPayload() instanceof  String)
+			try {
+				return message.getPayloadAsString();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        throw new IllegalArgumentException("Unexpected type of message payload (an Object[] with XMLStreamReader was expected): " + message.getPayload());
+    }
+
     protected XMLStreamReader payloadAsXMLStreamReader(final MuleMessage message) {
         if (message.getPayload() instanceof Object[]) {
             final Object[] payload = (Object[]) message.getPayload();

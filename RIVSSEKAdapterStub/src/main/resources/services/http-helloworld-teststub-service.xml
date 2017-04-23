@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mule
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf"
+        xmlns="http://www.mulesoft.org/schema/mule/core"
+        xsi:schemaLocation="
+                http://www.mulesoft.org/schema/mule/core    http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+                http://www.mulesoft.org/schema/mule/cxf     http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
+        ">
+    <flow name="http-helloworld-teststub-flow" >
+
+        <inbound-endpoint address="${ENDPOINT_HELLO_STUB}"
+                          connector-ref="soitoolkit-https-connector"/>
+
+        <cxf:jaxws-service serviceClass="org.ssek.schemas.helloworld._2011_11_17.wsdl.HelloWorldPortType" />
+        
+        <component>
+            <singleton-object class="se.skl.skltpservices.ssekadapter.test.stub.HelloWorldWS"  />
+        </component>
+
+        <custom-exception-strategy class="org.soitoolkit.commons.mule.error.ServiceExceptionStrategy"/>
+
+    </flow>
+</mule>
