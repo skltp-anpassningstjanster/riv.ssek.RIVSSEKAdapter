@@ -3,6 +3,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf"
         xmlns="http://www.mulesoft.org/schema/mule/core"
+		xmlns:spring="http://www.springframework.org/schema/beans" 
         xsi:schemaLocation="
                 http://www.mulesoft.org/schema/mule/core  http://www.mulesoft.org/schema/mule/core/current/mule.xsd
                 http://www.mulesoft.org/schema/mule/cxf   http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
@@ -12,9 +13,28 @@
         <inbound-endpoint address="${ENDPOINT_HTTP_SSEK_STUB}"
                           connector-ref="soitoolkit-http-connector"/>
 
+		<transformer ref="objToStr" />
+		<transformer ref="logRespIn" />
+
         <cxf:jaxws-service
-                serviceClass="se.skl.skltpservices.ssekadapter.test.stub.SSEKRegisterMedicalCertificateResponderService"
-                wsdlLocation="classpath:/schemas/interactions/RegisterMedicalCertificateInteraction/SSEKRegisterMedicalCertificateInteraction_3.1_rivtabp20.wsdl" />
+               serviceClass="se.skl.skltpservices.ssekadapter.test.stub.SSEKRegisterMedicalCertificateResponderService"
+               wsdlLocation="classpath:/schemas/interactions/RegisterMedicalCertificateInteraction/SSEKRegisterMedicalCertificateInteraction_3.1_rivtabp20.wsdl"
+               enableMuleSoapHeaders="false"
+               >
+
+			<cxf:inInterceptors>
+				<spring:ref bean="wSSPassThroughInterceptor" />
+				<spring:ref bean="inbound-security" />
+			</cxf:inInterceptors>
+
+			<cxf:outInterceptors>
+				<spring:ref bean="wSSPassThroughInterceptor" />
+				<spring:ref bean="mockSSEKHeaderInterceptor" />				
+                <spring:bean class="org.apache.cxf.binding.soap.saaj.SAAJOutInterceptor" />
+				<spring:ref bean="outbound-security" />
+			</cxf:outInterceptors>
+			
+        </cxf:jaxws-service>
 
         <component>
             <singleton-object class="se.skl.skltpservices.ssekadapter.test.stub.SSEKRegisterMedicalCertificateResponderService"  />

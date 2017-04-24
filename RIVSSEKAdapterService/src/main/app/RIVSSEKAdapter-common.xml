@@ -163,7 +163,5 @@
         </spring:bean>
 
         <spring:bean class="se.skl.skltpservices.ssekadapter.util.WSSPassThroughInterceptor" id="wSSPassThroughInterceptor" />
-
-	<spring:bean class="se.skl.skltpservices.ssekadapter.mule.MyMessageTransformer"  id="myMsgTransf" />
-        
+       
 </mule>

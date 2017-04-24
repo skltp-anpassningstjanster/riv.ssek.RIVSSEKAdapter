@@ -31,7 +31,7 @@ public class RIVRegisterMedicalCertificate extends RegisterMedicalCertificateMap
     @Override
     public MuleMessage mapRequest(final MuleMessage message) throws MapperException {
         try {
-            final RegisterMedicalCertificateType request = unmarshal(payloadAsXMLStreamReader(message));
+            final RegisterMedicalCertificateType request = unmarshal(payloadAsObject(message));
             // map to baseline model
             message.setPayload(marshal(request));
             return message;
@@ -42,9 +42,12 @@ public class RIVRegisterMedicalCertificate extends RegisterMedicalCertificateMap
 
     @Override
     public MuleMessage mapResponse(final MuleMessage message) throws MapperException {
-        try {
-            final RegisterMedicalCertificateResponseType response = unmarshalResponse(payloadAsXMLStreamReader(message));
+    	try {
+    		Object pl = payloadAsObject(message);
+
+            final RegisterMedicalCertificateResponseType response = unmarshalResponse(pl);
             // map to baseline model
+            // This will remove any unused namespaces
             message.setPayload(marshal(response));
             return message;
         } catch (Exception err) {

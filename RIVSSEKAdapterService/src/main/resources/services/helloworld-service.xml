@@ -20,6 +20,10 @@
 			transformer-refs="objToStr logReqIn" responseTransformer-refs="objToStr logRespOut" />
 
 		<cxf:proxy-client payload="envelope">
+			<cxf:inInterceptors>
+                <spring:bean class="org.apache.cxf.binding.soap.saaj.SAAJInInterceptor" />
+				<spring:ref bean="inbound-security" />
+			</cxf:inInterceptors>
 			<cxf:outInterceptors>
                 <spring:bean class="org.apache.cxf.binding.soap.saaj.SAAJOutInterceptor" />
 				<spring:ref bean="outbound-security" />
