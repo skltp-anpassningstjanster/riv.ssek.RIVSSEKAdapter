@@ -13,9 +13,6 @@
         <inbound-endpoint address="${ENDPOINT_HTTP_SSEK_STUB}"
                           connector-ref="soitoolkit-http-connector"/>
 
-		<transformer ref="objToStr" />
-		<transformer ref="logRespIn" />
-
         <cxf:jaxws-service
                serviceClass="se.skl.skltpservices.ssekadapter.test.stub.SSEKRegisterMedicalCertificateResponderService"
                wsdlLocation="classpath:/schemas/interactions/RegisterMedicalCertificateInteraction/SSEKRegisterMedicalCertificateInteraction_3.1_rivtabp20.wsdl"
