@@ -66,11 +66,14 @@
 	
 	<spring:bean id="outboundSSEKHeaderInterceptor" name="outboundSSEKHeaderInterceptor" class="se.skl.skltpservices.ssekadapter.mule.OutboundSSEKHeaderInterceptor">
         <spring:property name="senderId" value="${RIVSSEK_SENDER_ID}"/>	
+        <spring:property name="identityType" value="${RIVSSEK_IDENTITY_TYPE}"/>	
 	</spring:bean>
 
 	<spring:bean id="mockSSEKHeaderInterceptor" name="mockSSEKHeaderInterceptor" class="se.skl.skltpservices.ssekadapter.mule.OutboundSSEKHeaderInterceptor">
         <spring:property name="senderId" value="${RIVSSEK_SENDER_ID}"/>	
 	</spring:bean>
+
+    <spring:bean class="se.skl.skltpservices.ssekadapter.util.WSSPassThroughInterceptor" id="wSSPassThroughInterceptor" />
 
     <!-- Common connectors and endpoints, i.e. that not needs to be changed for different config-files (local unit-test, integration-test or production environments) -->
 
@@ -162,6 +165,5 @@
           </spring:constructor-arg>
         </spring:bean>
 
-        <spring:bean class="se.skl.skltpservices.ssekadapter.util.WSSPassThroughInterceptor" id="wSSPassThroughInterceptor" />
        
 </mule>

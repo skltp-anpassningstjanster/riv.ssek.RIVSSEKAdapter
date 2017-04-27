@@ -93,8 +93,10 @@ public class MockSSEKHeaderInterceptor extends AbstractPhaseInterceptor<Message>
        
         
         SSEK myheader = new SSEK();
-        myheader.setReceiverId(receiverId);
-        myheader.setSenderId(senderId);
+        myheader.getReceiverId().value=receiverId;
+        myheader.getReceiverId().type="ORGNR";
+        myheader.getSenderId().value = senderId;
+        myheader.getSenderId().type="ORGNR";
         myheader.setTxId(corId);
         SoapHeader header;
         try {

@@ -35,6 +35,7 @@ import org.mule.api.transport.PropertyScope;
 import org.mule.module.cxf.CxfConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.ssek.v2.SSEK.ReceiverId;
 import org.w3.wsaddressing10.AttributedURIType;
 import org.apache.cxf.message.Message;
 
@@ -63,6 +64,11 @@ public class OutboundSSEKHeaderInterceptor extends AbstractPhaseInterceptor<Mess
 	private String senderId;
 	public void setSenderId(String senderId) {
 		this.senderId = senderId;
+	}
+
+	private String identityType;
+	public void setIdentityType(String identityType) {
+		this.identityType = identityType;
 	}
 
 	@Override
@@ -95,10 +101,13 @@ public class OutboundSSEKHeaderInterceptor extends AbstractPhaseInterceptor<Mess
        
         
         SSEK myheader = new SSEK();
-        myheader.setReceiverId(receiverId);
-        myheader.setSenderId(senderId);
+        myheader.getReceiverId().value=receiverId;
+        myheader.getReceiverId().type=identityType;
+        myheader.getSenderId().value = senderId;
+        myheader.getSenderId().type=identityType;
         myheader.setTxId(corId);
         SoapHeader header;
+        
         try {
             header = new SoapHeader(CUSTOM_HEADER_SSEK, myheader, new JAXBDataBinding(SSEK.class));
             header.setMustUnderstand(true);
