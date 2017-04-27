@@ -61,6 +61,7 @@ public class OutboundPreProcessor implements MessageProcessor {
 
     static final String HEADER_EL = "Header";
     static final String LOGICAL_ADDRESS_EL = "LogicalAddress";
+    private static final String TO_EL = "To";
 
     // properties.
     private Router router;
@@ -117,7 +118,7 @@ public class OutboundPreProcessor implements MessageProcessor {
                         logicalAddress = reader.getText();
                     }
                     // Don't bother about riv-version in this code
-                    else if (headerSection && "To".equals(startTag)) {
+                    else if (headerSection && TO_EL.equals(startTag)) {
                         reader.next();
                         logicalAddress = reader.getText();
                     }
