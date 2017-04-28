@@ -9,7 +9,6 @@
 		<cxf:proxy-client payload="body" enableMuleSoapHeaders="false">
 			
 			<cxf:inInterceptors>
-				<spring:ref bean="outboundSSEKHeaderInterceptor" />				
 				<spring:ref bean="wSSPassThroughInterceptor" />
 				<spring:ref bean="inbound-security" />
 			</cxf:inInterceptors>
