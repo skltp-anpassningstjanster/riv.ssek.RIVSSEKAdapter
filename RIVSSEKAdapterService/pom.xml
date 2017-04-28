@@ -33,10 +33,6 @@
       <artifactId>skandia-schemas</artifactId>
     </dependency>
 
-    <dependency>
-      <groupId>se.skltp.adapterservices.ssekadapter</groupId>
-      <artifactId>riv-schemas</artifactId>
-    </dependency>
 
 	<!-- riv-ssek -->
     <dependency>

@@ -47,12 +47,6 @@
     <dependencyManagement>
         <dependencies>
 
-             <dependency>
-               <groupId>se.skltp.adapterservices.ssekadapter</groupId>
-               <artifactId>riv-schemas</artifactId>
-               <version>${project.version}</version>
-             </dependency>
-
 			<!-- riv-ssek -->
 		    <dependency>
 		       <groupId>se.skltp.adapterservices.ssekadapter</groupId>
