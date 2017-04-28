@@ -4,7 +4,7 @@
     <parent>
         <artifactId>schemas</artifactId>
         <groupId>se.skltp.adapterservices.ssekadapter</groupId>
-        <version>1.0.0-RC1</version>
+        <version>1.0.0-RC2-SNAPSHOT</version>
    		<relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
