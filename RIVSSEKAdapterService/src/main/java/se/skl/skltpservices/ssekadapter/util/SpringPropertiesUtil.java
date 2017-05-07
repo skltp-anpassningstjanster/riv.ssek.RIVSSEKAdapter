@@ -79,4 +79,21 @@ public class SpringPropertiesUtil extends PropertyPlaceholderConfigurer {
     public static Map<String, String> getProperties() {
         return propertiesMap;
     }
+    
+    /**
+     * 
+     * @param prefix
+     * @param type
+     * @return
+     */
+    public static String getProperty(String prefix, String type) {
+    	return getProperty(prefix + "_" + type);
+    }
+    
+    public static String getIdentityProperty(String prefix) {
+    	String idtype = getProperty(prefix + "_IDENTITY_TYPE");
+    	if(idtype==null)
+    		idtype = getProperty("RIVSSEK_IDENTITY_TYPE");
+    	return getProperty(prefix + "_" + getProperty("RIVSSEK_IDENTITY_TYPE"));
+    }
 }

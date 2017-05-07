@@ -20,6 +20,7 @@
 package se.skl.skltpservices.ssekadapter.mule;
 
 import static se.skl.skltpservices.ssekadapter.mule.OutboundPreProcessor.ROUTE_LOGICAL_ADDRESS;
+import static se.skl.skltpservices.ssekadapter.mule.OutboundPreProcessor.ROUTE_SSEK_RECEIVERID;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.namespace.QName;
@@ -92,7 +93,11 @@ public class OutboundSSEKHeaderInterceptor extends AbstractPhaseInterceptor<Mess
 		log.debug("senderId="+ senderId);
         
         // Receiver
-        String receiverId=(String)event.getMessage().getInvocationProperty(ROUTE_LOGICAL_ADDRESS);
+        String logicalAddress=(String)event.getMessage().getInvocationProperty(ROUTE_LOGICAL_ADDRESS);
+		log.debug("receiverId=" + logicalAddress);
+        
+        // Receiver
+        String receiverId=(String)event.getMessage().getInvocationProperty(ROUTE_SSEK_RECEIVERID);
 		log.debug("receiverId=" + receiverId);
         
         // txId
@@ -117,7 +122,7 @@ public class OutboundSSEKHeaderInterceptor extends AbstractPhaseInterceptor<Mess
         }
         
     	AttributedURIType u = new AttributedURIType();
-    	u.setValue(receiverId);
+    	u.setValue(logicalAddress);
         try {
             header = new SoapHeader(CUSTOM_HEADER_TO, u, new JAXBDataBinding(AttributedURIType.class));
             m.getHeaders().add(header);

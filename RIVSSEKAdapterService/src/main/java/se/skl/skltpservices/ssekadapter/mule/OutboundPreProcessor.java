@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import se.skl.skltpservices.ssekadapter.mapper.error.RouteException;
 import se.skl.skltpservices.ssekadapter.router.RouteData;
 import se.skl.skltpservices.ssekadapter.router.Router;
+import se.skl.skltpservices.ssekadapter.util.SpringPropertiesUtil;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -53,6 +54,7 @@ public class OutboundPreProcessor implements MessageProcessor {
 	private static final Logger log = LoggerFactory.getLogger(OutboundPreProcessor.class);
 
     public static final String ROUTE_LOGICAL_ADDRESS = "route-logical-address";
+    public static final String ROUTE_SSEK_RECEIVERID = "route-logical-address";
     public static final String ROUTE_SERVICE_SOAP_ACTION = "route-service-soap-action";
     public static final String ROUTE_ENDPOINT_URL = "route-endpoint-url";
 
@@ -85,6 +87,9 @@ public class OutboundPreProcessor implements MessageProcessor {
 
         	final MuleMessage message = event.getMessage();
         	message.setInvocationProperty(ROUTE_LOGICAL_ADDRESS, (logicalAddress == null) ? "" : logicalAddress);
+        	String ssekAddress = SpringPropertiesUtil.getIdentityProperty(logicalAddress);
+        	message.setInvocationProperty(ROUTE_SSEK_RECEIVERID, (ssekAddress == null) ? logicalAddress : ssekAddress);
+
         	final RouteData.Route route = router.getRoute(logicalAddress);
         	if (route != null) {
         		message.setInvocationProperty(ROUTE_SERVICE_SOAP_ACTION, route.getSoapAction());
