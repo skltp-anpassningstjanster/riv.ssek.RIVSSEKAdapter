@@ -36,8 +36,10 @@ import org.mule.api.transport.PropertyScope;
 import org.mule.module.cxf.CxfConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.ssek.v2.SSEK.ReceiverId;
 import org.w3.wsaddressing10.AttributedURIType;
+
+import se.skl.skltpservices.ssekadapter.util.SpringPropertiesUtil;
+
 import org.apache.cxf.message.Message;
 
 public class OutboundSSEKHeaderInterceptor extends AbstractPhaseInterceptor<Message> {
@@ -59,18 +61,7 @@ public class OutboundSSEKHeaderInterceptor extends AbstractPhaseInterceptor<Mess
 
     public OutboundSSEKHeaderInterceptor(String phase) {
         super(phase);
-    }
-    
-
-	private String senderId;
-	public void setSenderId(String senderId) {
-		this.senderId = senderId;
-	}
-
-	private String identityType;
-	public void setIdentityType(String identityType) {
-		this.identityType = identityType;
-	}
+    }  
 
 	@Override
 	public void handleMessage(Message message) throws Fault {
@@ -89,17 +80,23 @@ public class OutboundSSEKHeaderInterceptor extends AbstractPhaseInterceptor<Mess
             return;
         }
 
-    	// Sender
-		log.debug("senderId="+ senderId);
-        
-        // Receiver
+       
+        // Logical address
         String logicalAddress=(String)event.getMessage().getInvocationProperty(ROUTE_LOGICAL_ADDRESS);
-		log.debug("receiverId=" + logicalAddress);
-        
+		log.debug("logical address=" + logicalAddress);
+
+		// SSEK address type
+		String ssekAddressType = SpringPropertiesUtil.getIdentityTypeProperty(logicalAddress);
+		log.debug("SSEK address type=" + ssekAddressType);
+
         // Receiver
         String receiverId=(String)event.getMessage().getInvocationProperty(ROUTE_SSEK_RECEIVERID);
 		log.debug("receiverId=" + receiverId);
         
+    	// Sender
+    	String ssekSenderId = SpringPropertiesUtil.getProperty("RIVSSEK_SENDER", ssekAddressType);
+		log.debug("ssekSenderId=" + ssekSenderId);
+ 
         // txId
         String corId = (String) event.getMessage().getProperty(UseOrCreateCorrelationIdTransformer.CORRELATION_ID, PropertyScope.SESSION, "" );
 		log.debug("txId="+ corId);
@@ -107,9 +104,9 @@ public class OutboundSSEKHeaderInterceptor extends AbstractPhaseInterceptor<Mess
         
         SSEK myheader = new SSEK();
         myheader.getReceiverId().value=receiverId;
-        myheader.getReceiverId().type=identityType;
-        myheader.getSenderId().value = senderId;
-        myheader.getSenderId().type=identityType;
+        myheader.getReceiverId().type=ssekAddressType;
+        myheader.getSenderId().value = ssekSenderId;
+        myheader.getSenderId().type=ssekAddressType;
         myheader.setTxId(corId);
         SoapHeader header;
         

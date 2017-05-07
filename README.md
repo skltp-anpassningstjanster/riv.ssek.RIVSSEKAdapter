@@ -38,8 +38,12 @@ The RIV message uses the SOAP header To for the logical address of the producer.
 
 The SenderId and ReceiverId of the SSEK header may differ from the logical adresses used in RIV. This is configured in the override property file as
 
-RIVSSEK\_SENDER_ID=161234567890  
-RIVSSEK\_IDENTITY_TYPE= [ORGNR | CN]  (default)    
-1234567890\_IDENTITY_TYPE= [ORGNR | CN]  (override)  
-1234567890_ORGNR=161234567890  
-1234567890_CN=The company  
+`RIVSSEK\_SENDER_ID=9999999999`  (Logisk adress)  
+`RIVSSEK\_SENDER_ORGNR=169999999999`  
+`RIVSSEK\_SENDER_CN=ssek.skltp.se`  
+`RIVSSEK\_IDENTITY_TYPE= [ORGNR | CN]`  (default)    
+`1234567890\_IDENTITY_TYPE= [ORGNR | CN]`  (override)  
+`1234567890_ORGNR=161234567890`  
+`1234567890_CN=The company`  
+
+The sender will use the same type of id as the receiver.

@@ -33,7 +33,6 @@ import org.mule.api.transport.PropertyScope;
 import org.mule.module.cxf.CxfConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3.wsaddressing10.AttributedURIType;
 import org.apache.cxf.message.Message;
 
 public class MockSSEKHeaderInterceptor extends AbstractPhaseInterceptor<Message> {

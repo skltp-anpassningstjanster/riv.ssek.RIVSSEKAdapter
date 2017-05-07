@@ -54,7 +54,7 @@ public class OutboundPreProcessor implements MessageProcessor {
 	private static final Logger log = LoggerFactory.getLogger(OutboundPreProcessor.class);
 
     public static final String ROUTE_LOGICAL_ADDRESS = "route-logical-address";
-    public static final String ROUTE_SSEK_RECEIVERID = "route-logical-address";
+    public static final String ROUTE_SSEK_RECEIVERID = "route-ssek-receiverid";
     public static final String ROUTE_SERVICE_SOAP_ACTION = "route-service-soap-action";
     public static final String ROUTE_ENDPOINT_URL = "route-endpoint-url";
 

@@ -91,9 +91,15 @@ public class SpringPropertiesUtil extends PropertyPlaceholderConfigurer {
     }
     
     public static String getIdentityProperty(String prefix) {
-    	String idtype = getProperty(prefix + "_IDENTITY_TYPE");
+    	String idtype = getIdentityTypeProperty(prefix);
+    	return getProperty("RIVSSEK_" + prefix + "_" + idtype);
+    }
+
+    public static String getIdentityTypeProperty(String prefix) {
+    	String idtype = getProperty("RIVSSEK_" + prefix + "_IDENTITY_TYPE");
     	if(idtype==null)
     		idtype = getProperty("RIVSSEK_IDENTITY_TYPE");
-    	return getProperty(prefix + "_" + getProperty("RIVSSEK_IDENTITY_TYPE"));
+    	return idtype;
     }
+
 }
