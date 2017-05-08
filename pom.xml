@@ -13,7 +13,7 @@
 
     <groupId>se.skltp.adapterservices.ssekadapter</groupId>
     <artifactId>RIVSSEKAdapter</artifactId>
-    <version>1.0.0-RC3-SNAPSHOT</version>
+    <version>1.0.0-RC3</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
 
@@ -33,7 +33,7 @@
       <url>${scm.url}</url>
       <connection>${scm.connection}</connection>
       <developerConnection>${scm.connection}</developerConnection>
-      <tag>HEAD</tag>
+      <tag>v1.0.0-RC3</tag>
     </scm>
 
     <modules>
