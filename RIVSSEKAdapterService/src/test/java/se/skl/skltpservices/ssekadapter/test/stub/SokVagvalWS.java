@@ -81,7 +81,7 @@ public class SokVagvalWS implements SokVagvalsInfoInterface {
 
         final HamtaAllaVirtualiseringarResponseType responseType = new HamtaAllaVirtualiseringarResponseType();
         VirtualiseringsInfoType infoType = new VirtualiseringsInfoType();
-        infoType.setReceiverId("SSEK-1");
+        infoType.setReceiverId("RIVSSEK-SSEK-1");
         infoType.setRivProfil("RIVTABP20");
         infoType.setTjansteKontrakt(AbstractMapper.NS_RIV_RMC);
         infoType.setVirtualiseringsInfoId("ID-1");
@@ -91,7 +91,7 @@ public class SokVagvalWS implements SokVagvalsInfoInterface {
         responseType.getVirtualiseringsInfo().add(infoType);
 
         infoType = new VirtualiseringsInfoType();
-        infoType.setReceiverId("SSEK-2");
+        infoType.setReceiverId("RIVSSEK-SSEK-2");
         infoType.setRivProfil("RIVTABP20");
         infoType.setTjansteKontrakt(AbstractMapper.NS_RIV_RMC);
         infoType.setVirtualiseringsInfoId("ID-2");
@@ -101,7 +101,7 @@ public class SokVagvalWS implements SokVagvalsInfoInterface {
         responseType.getVirtualiseringsInfo().add(infoType);
         
         infoType = new VirtualiseringsInfoType();
-        infoType.setReceiverId("SSEK-3");
+        infoType.setReceiverId("RIVSSEK-SSEK-3");
         infoType.setRivProfil("RIVTABP20");
         infoType.setTjansteKontrakt(AbstractMapper.NS_RIV_HWR);
         infoType.setVirtualiseringsInfoId("ID-2");
@@ -110,6 +110,15 @@ public class SokVagvalWS implements SokVagvalsInfoInterface {
         infoType.setTomTidpunkt(null);
         responseType.getVirtualiseringsInfo().add(infoType);
 
+        infoType = new VirtualiseringsInfoType();
+        infoType.setReceiverId("NOT-RIVSSEK-SSEK-3");
+        infoType.setRivProfil("RIVTABP20");
+        infoType.setTjansteKontrakt(AbstractMapper.NS_RIV_HWR);
+        infoType.setVirtualiseringsInfoId("ID-2");
+        infoType.setAdress(SpringPropertiesUtil.getProperty("OUT_ENDPOINT_HELLO_STUB"));
+        infoType.setFromTidpunkt(fromNow(-2));
+        infoType.setTomTidpunkt(null);
+        responseType.getVirtualiseringsInfo().add(infoType);
         
         return responseType;
     }

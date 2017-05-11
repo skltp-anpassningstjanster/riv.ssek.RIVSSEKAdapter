@@ -47,3 +47,12 @@ The SenderId and ReceiverId of the SSEK header may differ from the logical adres
 `1234567890_CN=The company`  
 
 The sender will use the same type of id as the receiver.
+
+TAK
+-----
+In TAK the logical address of the producer should be in two flavors:
+
+1) 1234567890 for the addressing from consumer->vp->adapter
+2) RIVSSEK-1234567890 adapter->producer
+
+Otherwise it is not possible to set up routes for both vp and the adapter.

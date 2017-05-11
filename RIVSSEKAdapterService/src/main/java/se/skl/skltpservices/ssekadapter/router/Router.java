@@ -46,6 +46,9 @@ import java.util.concurrent.TimeUnit;
  */
 public class Router implements MuleContextAware {
 	
+	// Only use data with logicalAdress starting with RIVSSEK-.
+	private static final String RIVSSEK = "RIVSSEK-";
+
 	private static final Logger log = LoggerFactory.getLogger(Router.class);
 	
 	private final Object $lock = new Object[0];
@@ -127,9 +130,12 @@ public class Router implements MuleContextAware {
         final Calendar now = Calendar.getInstance();
         for (final VirtualiseringsInfoType infoType : data.getVirtualiseringsInfo()) {
         	log.info(infoType.getTjansteKontrakt() + " " + infoType.getReceiverId());
-            if (isActive(now, infoType) && isTargetContract(infoType.getTjansteKontrakt())) {
-                routeData.setRoute(infoType.getReceiverId(), RouteData.route(infoType.getTjansteKontrakt(), infoType.getAdress()));
-            }
+        	String logicalAddress=infoType.getReceiverId();
+        	if(logicalAddress.startsWith(RIVSSEK)) {
+	            if (isActive(now, infoType) && isTargetContract(infoType.getTjansteKontrakt())) {
+	                routeData.setRoute(logicalAddress.replace(RIVSSEK, ""), RouteData.route(infoType.getTjansteKontrakt(), infoType.getAdress()));
+	            }
+        	}
         }
         return routeData;
     }
