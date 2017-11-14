@@ -6,6 +6,8 @@ The adapter adds a SSEK header to RIV messges. It also adds signature to the mes
 
 The RIVSSEKAdaptre runs on Mule 3.3.1.
 
+By using this SKLTP distribution the user and the users organisation agrees to comply with the terms specified by Mules' Common Public Attribution License (CPAL https://www.mulesoft.com/cpal )
+
 Configuration files
 --------------------
 The following configuration files should be added to the mule conf-folder.
