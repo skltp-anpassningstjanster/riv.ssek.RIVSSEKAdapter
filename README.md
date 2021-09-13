@@ -1,5 +1,9 @@
 RIV-SSEK Adapter
 =================
+@deprecated
+
+Utveckling av RIVSSEK-adapter är avslutad.
+
 The adapter adds a SSEK header to RIV messges. It also adds signature to the message.
 
 [Wiki](https://skl-tp.atlassian.net/wiki/)
