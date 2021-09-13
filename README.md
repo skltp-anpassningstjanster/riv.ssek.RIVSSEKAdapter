@@ -1,4 +1,4 @@
 # riv.ssek.RIVSSEKAdapter
 deprecated
 
-RIVSSEK-Adapren är avvecklad.
+RIVSSEK-Adaptern är avvecklad. 
